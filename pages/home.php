@@ -15,20 +15,39 @@
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Shoppe</a>
       <div class="d-flex ms-auto pt-2">
-      <?php if ( isUserLoggedIn() ) { ?>
-        <p class="nav-link ps-2 pe-2"><i class="bi bi-person-circle"><?= $_SESSION['user']['firstname'] ?></i></p>
+      <!-- <?php if ( isUserLoggedIn() ) { ?>
+        <p class="nav-link ps-2 pe-2"><i class="bi bi-person-circle"><?= $_SESSION['user']['firstname'] ?></i></p> -->
           <!-- <p>|</p> -->
-            <a class="nav-link ps-2 pe-2" href="/editprofile">Edit Profile</a>
+            <!-- <a class="nav-link ps-2 pe-2" href="/editprofile">Edit Profile</a> -->
               <!-- <p disabled readonly>|</p> -->
-                <a class="nav-link ps-2 pe-2" href="/logout">Login out</a>
+                <!-- <a class="nav-link ps-2 pe-2" href="/logout">Login out</a>
         <?php } else { ?>
-        <a class="nav-link ps-2 pe-2" href="/login">Login</a>
+        <a class="nav-link ps-2 pe-2" href="/login">Login</a> -->
           <!-- <p disabled readonly>|</p> -->
-            <a class="nav-link ps-2 pe-2" href="/signup">Signup</a>
+            <!-- <a class="nav-link ps-2 pe-2" href="/signup">Signup</a> -->
               <!-- <p disabled readonly>|</p> -->
-                <a class="nav-link ps-2 pe-2" href="/dashborad">Seller Center</a>
-                <?php } ?>
-            
+                <!-- <a class="nav-link ps-2 pe-2" href="/dashboard">Seller Center</a> -->
+                <!-- <?php if ( isAdmin() ) : ?>
+                  <a class="nav-link ps-2 pe-2" href="/dashboard">Dashboard</a>
+                <?php endif; ?>
+              <?php } ?> -->
+              <!--  -->
+              <?php if ( isUserLoggedIn() ) { ?>
+                <p class="nav-link ps-2 pe-2"><i class="bi bi-person-circle"><?= $_SESSION['user']['firstname'] ?></i></p>
+              <?php } ?>
+              <?php if ( isEditor() || isUser() ) : ?>
+                <a class="nav-link ps-2 pe-2" href="/editprofile">Edit Profile</a>
+                <?php endif; ?>
+              <?php if ( isAdmin() || isEditor() ) : ?>
+                  <a class="nav-link ps-2 pe-2" href="/dashboard">Dashboard</a>
+                <?php endif; ?>
+              <?php if ( isset( $_SESSION["user"] ) ) { ?>
+                <a href="/logout" class="nav-link ps-2 pe-2">Logout</a>
+              <?php } else { ?>
+                <a href="/login" class="nav-link ps-2 pe-2">Login</a>
+                <a href="/signup" class="nav-link ps-2 pe-2">Sign Up</a>
+                <a class="nav-link ps-2 pe-2" href="/dashboard">Dashboard</a>
+              <?php } ?>
       </div>
   </div>
 </nav>  
@@ -101,7 +120,7 @@
                         <button type="submit" class="btn btn-sm btn-warning"> BUY NOW </button>
                         <button type="submit" class="btn btn-sm btn-light"> ADD CART </button>
                       </div>
-              </div>
+                    </div>
           </div>   
         <?php endforeach; ?>
       <?php endif; ?>

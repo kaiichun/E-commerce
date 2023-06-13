@@ -4,6 +4,7 @@
 
     $firstname = $_POST["firstname"];
     $lastname = $_POST["lastname"];
+    $username = $_POST["username"];
     $email = $_POST["email"];
     $phonenumber = $_POST["phonenumber"];
     $dob = $_POST["dob"];
@@ -59,6 +60,8 @@
             'password' => password_hash($password, PASSWORD_DEFAULT)
         ]);
         
+        
+
         $sql = "SELECT * FROM users where email = :email";
         $query = $database->prepare( $sql );
         $query->execute([

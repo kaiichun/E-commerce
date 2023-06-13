@@ -23,21 +23,32 @@
             case 'login':
                 require 'pages/login/login.php';
                 break;
+            case 'seller-login':
+                require 'pages/login/seller-login.php';
+                break;
             case 'signup':
                 require 'pages/signup/signup.php';
+                break;
+            case 'seller-signup':
+                require 'pages/signup/seller-signup.php';
                 break;
             case 'logout': 
                 require "pages/logout.php";
                 break;
-            case 'dashborad': 
-                require "pages/sellers/dashborad.php";
-                break;
             case 'editprofile':
                 require 'pages/editprofile.php';
                 break;
-                
             case 'sellerlogin': 
                 require "pages/sellerlogin.php";
+                break;
+            case 'dashboard': 
+                require "pages/dashborad/dashboard.php";
+                break;
+            case 'manage-users':
+                require "pages/dashborad/admin/manage-users-account.php";
+                break;
+            case 'manage-products': 
+                require "pages/dashborad/sellers/manage-products/manage-products.php";
                 break;
             default:
                 require 'pages/home.php';

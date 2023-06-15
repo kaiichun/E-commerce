@@ -25,7 +25,7 @@ $users = $query->fetchAll();
         <div class="d-flex justify-content-between align-items-center mb-1">
             <h1 class="h1">Manage Users</h1>
             <div class="text-end">
-                <a href="/manage-users-add" class="btn btn-primary btn-sm"
+                <a href="/manage-users-account-add" class="btn btn-primary btn-sm"
                 >Add New User</a
                 >
             </div>
@@ -34,6 +34,7 @@ $users = $query->fetchAll();
         
 <!--  -->
 <div class="container-fluid mx-auto mb-3" style="max-width: 98vw;">
+    <?php require "parts/message_success.php"; ?>
         <div class="row">
             <div class="col-12 ">
                 <div class="card mb-2">
@@ -43,12 +44,12 @@ $users = $query->fetchAll();
                                 <tr class="col-12">
                                     <th scope="col" style="width: 13%;">Register Time</th>
                                     <th scope="col" style="width: 4%;">ID</th>
-                                    <th scope="col" style="width: 10%;">UserName</th>
-                                    <th scope="col" style="width: 23%;">Email</th>
+                                    <th scope="col" style="width: 10%;">Name</th>
+                                    <th scope="col" style="width: 20%;">Email</th>
                                     <th scope="col"style="width: 13%;">Phone Number</th>
                                     <th scope="col"style="width: 10%;">Zip Code</th>
                                     <th scope="col" style="width: 5%;">Role</th>
-                                    <th scope="col" class="text-end" style="width: 12%;">Actions</th>
+                                    <th scope="col" class="text-end" style="width: 15%;">Actions</th>
                                 </tr>
                             </thead>
                         <tbody>
@@ -70,7 +71,7 @@ $users = $query->fetchAll();
                                     <strong><?= $user['id']; ?></strong>
                                 </td>
                                 <td>
-                                    <?= $user['username']; ?>
+                                    <?= $user['firstname']; ?>
                                 </td>
                                 <td>
                                     <?= $user['email']; ?>
@@ -96,17 +97,12 @@ $users = $query->fetchAll();
                                 <td class="text-end">
                                     <div class="buttons">
                                         <a
-                                            href="/manage-users-edit?id=<?= $user['id']; ?>"
+                                            href="/manage-users-account-edit?id=<?= $user['id']; ?>"
                                             class="btn btn-success btn-sm me-2"
                                         >
                                             <i class="bi bi-pencil"></i>
                                         </a>
-                                        <a
-                                            href="/manage-users-changepwd?id=<?= $user['id']; ?>"
-                                            class="btn btn-warning btn-sm me-2"
-                                        >
-                                            <i class="bi bi-key"></i>
-                                        </a>
+                                            
                                              <!-- Button trigger modal -->
                                             <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete-modal-<?= $user['id']; ?>">
                                                 <i class="bi bi-trash"></i>
@@ -117,23 +113,22 @@ $users = $query->fetchAll();
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Are you sure you want to delete this user: <?= $user['username']; ?>?</h1>
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Delete</h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body text-start">
-                                                    You're currently deleting <?= $user['username']; ?>
+                                                    <?= $user['firstname']; ?> Are you sure you want to delete this user?
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                     <!--
                                                     Delete Form
                                                     1. add action
                                                     2. add method
                                                     3. add input hidden field for id
                                                     -->
-                                                    <form method= "POST" action="/users/delete">
+                                                    <form method= "POST" action="users/delete">
                                                         <input type="hidden" name="id" value= "<?= $user['id']; ?>" />
-                                                        <button type="button" class="btn btn-danger">Yes, please delete</button>
+                                                        <button type="submit" class="btn btn-danger">Yes, please delete</button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -162,12 +157,12 @@ $users = $query->fetchAll();
                                 <tr class="col-12">
                                     <th scope="col" style="width: 13%;">Register Time</th>
                                     <th scope="col" style="width: 4%;">ID</th>
-                                    <th scope="col" style="width: 10%;">UserName</th>
-                                    <th scope="col" style="width: 23%;">Email</th>
+                                    <th scope="col" style="width: 10%;">Name</th>
+                                    <th scope="col" style="width: 20%;">Email</th>
                                     <th scope="col"style="width: 13%;">Phone Number</th>
                                     <th scope="col"style="width: 10%;">Zip Code</th>
                                     <th scope="col" style="width: 5%;">Role</th>
-                                    <th scope="col" class="text-end" style="width: 12%;">Actions</th>
+                                    <th scope="col" class="text-end" style="width: 15%;">Actions</th>
                                 </tr>
                             </thead>
                         <tbody>
@@ -189,7 +184,7 @@ $users = $query->fetchAll();
                                     <strong><?= $user['id']; ?></strong>
                                 </td>
                                 <td>
-                                    <?= $user['username']; ?>
+                                    <?= $user['firstname']; ?>
                                 </td>
                                 <td>
                                     <?= $user['email']; ?>
@@ -220,12 +215,12 @@ $users = $query->fetchAll();
                                         >
                                             <i class="bi bi-pencil"></i>
                                         </a>
-                                        <a
+                                        <!-- <a
                                             href="/manage-users-changepwd?id=<?= $user['id']; ?>"
                                             class="btn btn-warning btn-sm me-2"
                                         >
                                             <i class="bi bi-key"></i>
-                                        </a>
+                                        </a> -->
                                              <!-- Button trigger modal -->
                                             <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete-modal-<?= $user['id']; ?>">
                                                 <i class="bi bi-trash"></i>
@@ -236,11 +231,11 @@ $users = $query->fetchAll();
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Are you sure you want to delete this user: <?= $user['username']; ?>?</h1>
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Delete</h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body text-start">
-                                                    You're currently deleting <?= $user['username']; ?>
+                                                    <?= $user['firstname']; ?> Are you sure you want to delete this user?
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -250,14 +245,14 @@ $users = $query->fetchAll();
                                                     2. add method
                                                     3. add input hidden field for id
                                                     -->
-                                                    <form method= "POST" action="/users/delete">
+                                                    <form method= "POST" action="users/delete">
                                                         <input type="hidden" name="id" value= "<?= $user['id']; ?>" />
-                                                        <button type="button" class="btn btn-danger">Yes, please delete</button>
+                                                        <button type="submit" class="btn btn-danger">Yes, please delete</button>
                                                     </form>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>  
                                 </div>
                             </td>
                         </tr>
@@ -281,12 +276,12 @@ $users = $query->fetchAll();
                                 <tr class="col-12">
                                     <th scope="col" style="width: 13%;">Register Time</th>
                                     <th scope="col" style="width: 4%;">ID</th>
-                                    <th scope="col" style="width: 10%;">UserName</th>
-                                    <th scope="col" style="width: 23%;">Email</th>
+                                    <th scope="col" style="width: 10%;">Name</th>
+                                    <th scope="col" style="width: 20%;">Email</th>
                                     <th scope="col"style="width: 13%;">Phone Number</th>
                                     <th scope="col"style="width: 10%;">Zip Code</th>
                                     <th scope="col" style="width: 5%;">Role</th>
-                                    <th scope="col" class="text-end" style="width: 12%;">Actions</th>
+                                    <th scope="col" class="text-end" style="width: 15%;">Actions</th>
                                 </tr>
                             </thead>
                         <tbody>
@@ -308,7 +303,7 @@ $users = $query->fetchAll();
                                     <strong><?= $user['id']; ?></strong>
                                 </td>
                                 <td>
-                                    <?= $user['username']; ?>
+                                    <?= $user['firstname']; ?>
                                 </td>
                                 <td>
                                     <?= $user['email']; ?>
@@ -339,12 +334,12 @@ $users = $query->fetchAll();
                                         >
                                             <i class="bi bi-pencil"></i>
                                         </a>
-                                        <a
+                                        <!-- <a
                                             href="/manage-users-changepwd?id=<?= $user['id']; ?>"
                                             class="btn btn-warning btn-sm me-2"
                                         >
                                             <i class="bi bi-key"></i>
-                                        </a>
+                                        </a> -->
                                              <!-- Button trigger modal -->
                                             <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete-modal-<?= $user['id']; ?>">
                                                 <i class="bi bi-trash"></i>
@@ -355,11 +350,11 @@ $users = $query->fetchAll();
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Are you sure you want to delete this user: <?= $user['username']; ?>?</h1>
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Delete</h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body text-start">
-                                                    You're currently deleting <?= $user['username']; ?>
+                                                    <?= $user['firstname']; ?> Are you sure you want to delete this user?
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -369,14 +364,14 @@ $users = $query->fetchAll();
                                                     2. add method
                                                     3. add input hidden field for id
                                                     -->
-                                                    <form method= "POST" action="/users/delete">
+                                                    <form method= "POST" action="users/delete">
                                                         <input type="hidden" name="id" value= "<?= $user['id']; ?>" />
-                                                        <button type="button" class="btn btn-danger">Yes, please delete</button>
+                                                        <button type="submit" class="btn btn-danger">Yes, please delete</button>
                                                     </form>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>  
                                 </div>
                             </td>
                         </tr>

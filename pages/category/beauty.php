@@ -52,11 +52,11 @@
   </div>
 </nav>  
 
-<section id="allproduct">
+   <section id="newproduct">
   
-        <ul class="nav mt-3 mb-4 justify-content-end">
+   <ul class="nav mt-3 mb-4 justify-content-end">
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="/products">All Products</a>
+            <a class="nav-link" href="/products">All Products</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/category/beauty">Beauty</a>
@@ -83,12 +83,14 @@
             <a class="nav-link" href="/category/other">Other</a>
           </li>
         </ul>
-  <div class="container my-5" style="max-width: 1400px;"> 
-   <h3 class="mt-3">All Products</h3> 
+  <div class="container mx-auto my-5" style="max-width: 1400px;">
+        <h3>Beauty</h3> 
+        
     <div class="row">
       <?php if ( isset( $products) ) : ?>
         <?php 
               foreach( $products as $product ) : ?>
+              <?php if($product ["category"] == "beauty") { ?>
           <div class="col-2 g-3 ">
             <div class="card h-80">
               <form action="wishlist/submit" method="post">
@@ -124,6 +126,7 @@
                       </div>
                     </div>
           </div>   
+          <?php } ?>
         <?php endforeach; ?>
       <?php endif; ?>
     </div>

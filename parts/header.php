@@ -11,5 +11,12 @@
           href="asstes/style.css" 
           rel="stylesheet" 
         />
+        <style>
+          input::-webkit-outer-spin-button,
+          input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+          }
+        </style>
     </head>
     <body>

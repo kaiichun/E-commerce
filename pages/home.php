@@ -35,7 +35,7 @@
               <?php if ( isUserLoggedIn() ) { ?>
                 <p class="nav-link ps-2 pe-2"><i class="bi bi-person-circle"><?= $_SESSION['user']['firstname'] ?></i></p>
               <?php } ?>
-              <?php if ( isEditor() || isUser() ) : ?>
+              <?php if ( isUserLoggedIn() ) : ?>
                 <a class="nav-link ps-2 pe-2" href="/editprofile">Edit Profile</a>
                 <?php endif; ?>
               <?php if ( isAdmin() || isEditor() ) : ?>
@@ -46,7 +46,7 @@
               <?php } else { ?>
                 <a href="/login" class="nav-link ps-2 pe-2">Login</a>
                 <a href="/signup" class="nav-link ps-2 pe-2">Sign Up</a>
-                <a class="nav-link ps-2 pe-2" href="/dashboard">Dashboard</a>
+                <a class="nav-link ps-2 pe-2" href="/dashboard">Seller Center</a>
               <?php } ?>
       </div>
   </div>
@@ -79,7 +79,7 @@
   <div class="container mx-auto mb-5" style="max-width: 1400px;">
     <div class="d-flex">
         <h3>New Product</h3> 
-          <a class="ms-auto text-decoration-none p-2" role="button" href="" style="font-size: 1rem;">see all<i class="bi bi-arrow-right-short"></i></a>
+          <a class="ms-auto text-decoration-none p-2" role="button" href="/products" style="font-size: 1rem;">see all<i class="bi bi-arrow-right-short"></i></a>
     </div>
     <div class="row">
       <?php if ( isset( $products) ) : ?>
@@ -134,7 +134,7 @@
   <div class="container mx-auto mb-5" style="max-width: 1400px;">
     <div class="d-flex">
         <h3>Hot Selling</h3> 
-          <a class="ms-auto text-decoration-none p-2" role="button" href="" style="font-size: 1rem;">see all<i class="bi bi-arrow-right-short"></i></a>
+          <a class="ms-auto text-decoration-none p-2" role="button" href="/products" style="font-size: 1rem;">see all<i class="bi bi-arrow-right-short"></i></a>
     </div>
     <div class="row">
       <?php if ( isset( $products) ) : ?>

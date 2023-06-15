@@ -1,4 +1,11 @@
 <?php
+    if ( !isAdmin() ) {
+        // if current user is not an admin, redirect to dashboard
+        header("Location: /dashboard");
+        exit;
+    }
+
+    // load database
 
     $database = connectToDB();
 
@@ -8,6 +15,7 @@
     $phonenumber = $_POST["phonenumber"];
     $dob = $_POST["dob"];
     $gender = $_POST["gender"];
+    $role = $_POST["role"];
     $address = $_POST["address"];
     $city = $_POST["city"];
     $zip = $_POST["zip"];
@@ -27,6 +35,7 @@
         empty($phonenumber) ||
         empty($dob) ||
         empty($gender) ||
+        empty($role) ||
         empty($address) ||
         empty($city) ||
         empty($zip) ||
@@ -41,9 +50,14 @@
         $error = "your pass must be at least 6 characters";
     }else if ( $user ) {
         $error = "This email has already been register by other user!";
-    }else{
-        $sql = "INSERT INTO users (`firstname`,`lastname`,`phonenumber`,`dob`,`gender`,`address`,`city`,`zip`,`state`,`email`,`password`) VALUES
-         (:firstname, :lastname, :phonenumber, :dob, :gender, :address, :city, :zip, :state, :email, :password)";
+    }
+
+    if( isset ($error)){
+        $_SESSION['error'] = $error;
+        header("Location: /manage-users-account-add");
+    } else {
+         $sql = "INSERT INTO users (`firstname`,`lastname`,`phonenumber`,`dob`,`gender`,`role`,`address`,`city`,`zip`,`state`,`email`,`password`) VALUES
+         (:firstname, :lastname, :phonenumber, :dob, :gender, :role, :address, :city, :zip, :state, :email, :password)";
         $query = $database->prepare( $sql );
         $query->execute([
             'firstname' => $firstname,
@@ -51,6 +65,7 @@
             'phonenumber' => $phonenumber,
             'dob' => $dob,
             'gender' => $gender,
+            'role' => $role,
             'address' => $address,
             'city' => $city,
             'zip' => $zip,
@@ -58,22 +73,14 @@
             'email' => $email,
             'password' => password_hash($password, PASSWORD_DEFAULT)
         ]);
-        
+
+        // redirect the user back to manage-users page
+        $_SESSION["success"] = "New user has been created.";
+        $_SESSION['new_user_email'] = $email;
+        header("Location: /manage-users");
+        exit;
+    }   
         
 
-        $sql = "SELECT * FROM users where email = :email";
-        $query = $database->prepare( $sql );
-        $query->execute([
-            'email' => $email
-        ]);
-        $user = $query->fetch();
-        $_SESSION['user'] = $user;
-        header("Location: /");
-        exit;
-    }
 
-    if ( isset( $error ) ) {
-        $_SESSION['error'] = $error;
-        header("Location: /signup");
-        exit;
-    }
+   

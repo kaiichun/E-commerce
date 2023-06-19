@@ -4,19 +4,44 @@ if ( !isAdmin() && !isEditor()) {
   header("Location: /");
   exit;
 }
-  // load data from database
   $database = connectToDB();
 
- // ASC - acens
- $sql = "SELECT * FROM products";
+  $sql = "SELECT * FROM products";
   $query = $database->prepare($sql);
   $query->execute();
 
-  // fetch the data from query
   $products = $query->fetchAll();
+
   require "parts/header.php";
 ?>
  <h1 class="h1 mt-5 mb-4 text-center">Dashboard</h1>
+
+<div class="container mx-auto my-auto" style="max-width: 100vw;">  
+  <div class="row col-12 mb-4">
+        <div class="col-9">
+        
+              <div>
+              <h5 class="text-start">
+                Comments
+              </h5>
+             
+              </div>
+         
+        </div>
+
+        <div class="col-3">
+         
+              <div>
+                <h5 class=" text-start">
+                  Total Sales
+                </h5>
+
+          </div>
+        </div>
+</div>
+</div>
+
+
 
 <div class="container mx-auto my-auto" style="max-width: 100vw;">  
      <div class="row col-12">

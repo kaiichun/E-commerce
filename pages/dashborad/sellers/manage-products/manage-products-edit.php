@@ -8,7 +8,7 @@
         // load database
         $database = connectToDB();
         // load the post data based on the id
-        $sql = "SELECT * FROM products WHERE products.id = :id";
+        $sql = "SELECT * FROM products WHERE id = :id";
         $query = $database->prepare($sql);
         $query->execute([
                 'id' => $_GET['id']
@@ -97,20 +97,21 @@
            
           </div>
 
-<div class="col mb-4">
+       <div class="col mb-4">
               <label for="product_description" class="form-label">Description</label>
-              <textarea type="text" class="form-control" placeholder="" rows="3" aria-label="product_description" id="product_description" name="product_description">
+              <textarea type="text" class="form-control" placeholder="" rows="3" aria-label="product_description" id="product_description" name="product_description" value="<?= $products['product_price']; ?>">
               <?= $products['product_description']; ?>
                 </textarea>
             </div>
             <div class="text-end m-2">
+              <input type="hidden" name="id" value="<?= $products['id'];?>"/> 
             <button type="submit" class="btn btn-primary btn">
               Comfrim update
             </button>
           </div>
         </div>
             
-            
+  </form>     
 
 
 </div>

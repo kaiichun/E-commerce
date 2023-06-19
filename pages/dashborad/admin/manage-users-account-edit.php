@@ -115,6 +115,7 @@
             </div>
             
             <div class="d-grid mt-3">
+            <input type="hidden" name="id" value="<?= $users['id'];?>"/> 
                 <button type="submit" class="btn btn-primary btn-fu">
                     Update Now
                 </button>

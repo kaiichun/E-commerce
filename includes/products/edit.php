@@ -11,9 +11,9 @@
     $product_price = $_POST['product_price'];
     $category = $_POST['category'];
     $status = $_POST['status'];
-    $id =$_POST['id'];
+    $id = $_POST['id'];
 
-    if( empty( $product_name ) || empty( $product_description ) || empty( $product_price ) || empty( $category) || empty( $product_name )){
+    if( empty( $product_name ) || empty( $product_description ) || empty( $product_price ) || empty( $category) || empty( $product_name ) || empty(  $id  )){
         $error = "Please enter fields";
     }
 
@@ -23,7 +23,7 @@
         exit;
     }
 
-    $sql = "UPDATE products SET product_name = :product_name, product_description = :product_description, product_price = :product_price, category = :category, status = :status WHERE user_id = :user_id";
+    $sql = "UPDATE products SET product_name = :product_name, product_description = :product_description, product_price = :product_price, category = :category, status = :status WHERE id = :id";
     $query = $database->prepare($sql);
     $query->execute([
         'product_name' => $product_name,
@@ -31,7 +31,7 @@
         'product_price' => $product_price,
         'category' => $category,
         'status' => $status,
-        'user_id' => $_SESSION["user"]["id"]
+        'id' => $id
     ]);
     
     $_SESSION["success"] = "Product are success edited.";

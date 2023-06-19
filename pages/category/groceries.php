@@ -2,13 +2,12 @@
   // load data from database
   $database = connectToDB();
 
- // ASC - acens
- $sql = "SELECT * FROM products";
+  $sql = "SELECT * FROM products WHERE status = 'publish' ORDER BY id ASC";
   $query = $database->prepare($sql);
   $query->execute();
-
   // fetch the data from query
   $products = $query->fetchAll();
+  
   require "parts/header.php";
 ?>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -89,7 +88,7 @@
       <?php if ( isset( $products) ) : ?>
         <?php 
               foreach( $products as $product ) : ?>
-              <?php if($product ["category"] == "grocerise") { ?>
+              <?php if($product ["category"] == "groceries") { ?>
           <div class="col-2 g-3 ">
             <div class="card h-80">
               <form action="wishlist/submit" method="post">

@@ -2,13 +2,12 @@
   // load data from database
   $database = connectToDB();
 
- // ASC - acens
- $sql = "SELECT * FROM products";
+  $sql = "SELECT * FROM products WHERE status = 'publish' ORDER BY id ASC";
   $query = $database->prepare($sql);
   $query->execute();
-
   // fetch the data from query
   $products = $query->fetchAll();
+  
   require "parts/header.php";
 ?>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -92,6 +91,35 @@
               <?php if($product ["category"] == "home") { ?>
           <div class="col-2 g-3 ">
             <div class="card h-80">
+
+
+            <form method="POST" action="wishlist/submit">
+                  <input 
+                      type="hidden"
+                      name="is_wishlist"
+                      value="<?= $product['is_wishlist']; ?>"
+                      />
+                      <input 
+                        type="hidden"
+                        name="update_id"
+                        value="<?= $product['id']; ?>"
+                      />
+
+                      <?php if($product['is_wishlist']==0) : ?>
+                        <i class="bi bi-heart" style="position: absolute; top: 10px; right: 10px; font-size: 1.3rem; color: #f00;"></i>
+                      <?php else : ?>
+                        <i class="bi bi-heart-fill" style="position: absolute; top: 10px; right: 10px; font-size: 1.3rem; color: #f00;"></i>
+                      <?php endif ;?>
+                       <img
+                        src=<?=  $product['product_image']; ?>
+                        class="card-img-top img-fluid"
+                        style="width:240px; height:200px"
+                        alt="Produc"
+                      />
+                    </button>
+                </form>
+
+
               <form action="wishlist/submit" method="post">
                 <input type="hidden" name="id" value="<?= $product['id']?>">
                   <input type="hidden" name="is_wishlist" value="<?= $product['is_wishlist'];?>">
@@ -101,13 +129,7 @@
                       <?php else : ?>
                         <i class="bi bi-heart-fill" style="position: absolute; top: 10px; right: 10px; font-size: 1.3rem; color: #f00;"></i>
                       <?php endif ;?>
-                      <img
-                        src=<?=  $product['product_image']; ?>
-                        class="card-img-top img-fluid"
-                        style="width:240px; height:200px"
-                        alt="Produc"
-                      />
-                    </button>
+                   
               </form>
               <div class="card-body text-start m-0 p-0 ps-2 pt-1">
                 <small class="card-title"><?= $product['product_name']; ?></small>

@@ -44,6 +44,12 @@
             case 'wishlist/submit':
                 require "includes/wishlist/submit.php";
                 break;
+            case 'addtocart/submit':
+                require "includes/addtocart/submit.php";
+                break;
+            case 'addtocart/delete':
+                require "includes/addtocart/delete.php";
+                break;
             case 'login':
                 require 'pages/login/login.php';
                 break;
@@ -70,6 +76,12 @@
                 break;
             case 'products': 
                 require "pages/products.php";
+                break;
+            case 'products-view': 
+                require "pages/products-view.php";
+                break;
+            case 'add-to-cart': 
+                require "pages/add-to-cart.php";
                 break;
             case 'category/beauty': 
                 require "pages/category/beauty.php";

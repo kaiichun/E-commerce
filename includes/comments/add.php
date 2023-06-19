@@ -6,7 +6,8 @@ if ( !isAdminOrEditor()) {
 }
 
 $database = connectToDB();
-    $comments = $_POST['comments'];
+
+        $comments = $_POST['comments'];
         $product_id = $_POST['product_id'];
         $user_id = $_POST['user_id'];
     

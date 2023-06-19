@@ -6,19 +6,17 @@
 
 $database = connectToDB();
 
-// get all the users
-return $database->fetchAll(
-    "SELECT
-    comments.*,
-    users.firstname
-    FROM comments
-    JOIN users
-    ON comments.user_id = users.id
-    WHERE product_id = :product_id ORDER BY id DESC",
-    [
-    "product_id" => $product_id
-    
-    ]);
+$sql='SELECT comments . *,
+users.email
+FROM comments
+JOIN users
+ON comments.user_id = users.id
+WHERE product_id = :product_id ORDER BY id DESC LIMIT 3';
+        $query=$database->prepare($sql);
+        $query->execute([
+            'product_id' => $product_id
+        ]);
+        $comments = $query->fetch();
 
 require "parts/header.php";
 ?>
@@ -36,12 +34,12 @@ require "parts/header.php";
             <div class="card mt-2 <?php echo ( $comment["user_id"] === $_SESSION['user']['id'] ? "bg-info" : '' ); ?>">
                 <div class="card-body">
                     <p class="card-text"><?= $comment['comments']; ?></p>
-                    <p class="card-text"><small class="text-muted" style="font-size: 10px;" >Commented By <?= $comment['name']; ?></small></p>
+                    <p class="card-text"><small class="text-muted" style="font-size: 10px;" >Commented By <?= $comment['email']; ?></small></p>
                 </div>
                     </div>
                     <?php endforeach; ?>
             <?php endif; ?>
-            <?php if ( isUserLoggedIn($post['id']) ) : ?>
+            <?php if ( isUserLoggedIn($product['id']) ) : ?>
             <form
                 action="/comments/add"
                 method="POST"    

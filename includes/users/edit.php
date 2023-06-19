@@ -17,6 +17,9 @@
     $city = $_POST["city"];
     $zip = $_POST["zip"];
     $state = $_POST["state"];
+    $id = $_POST['id'];
+
+
     /* 
         do error check
         - make sure all the fields are not empty
@@ -28,7 +31,8 @@
     empty($city) ||
     empty($zip) ||
     empty($state) || 
-    empty($role))
+    empty($role) || 
+    empty($id) )
     {
     $error = 'All rows are required';
     }

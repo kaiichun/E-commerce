@@ -2,13 +2,12 @@
   // load data from database
   $database = connectToDB();
 
- // ASC - acens
- $sql = "SELECT * FROM products";
+  $sql = "SELECT * FROM products WHERE status = 'publish' ORDER BY id ASC";
   $query = $database->prepare($sql);
   $query->execute();
-
   // fetch the data from query
   $products = $query->fetchAll();
+  
   require "parts/header.php";
 ?>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">

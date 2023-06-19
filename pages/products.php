@@ -3,54 +3,16 @@
   $database = connectToDB();
 
  // ASC - acens
- $sql = "SELECT * FROM products";
+ $sql = "SELECT * FROM products WHERE status = 'publish' ORDER BY id ASC";
   $query = $database->prepare($sql);
   $query->execute();
-
   // fetch the data from query
   $products = $query->fetchAll();
+  
   require "parts/header.php";
+  require "parts/navbar.php";
+
 ?>
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">Shoppe</a>
-      <div class="d-flex ms-auto pt-2">
-      <!-- <?php if ( isUserLoggedIn() ) { ?>
-        <p class="nav-link ps-2 pe-2"><i class="bi bi-person-circle"><?= $_SESSION['user']['firstname'] ?></i></p> -->
-          <!-- <p>|</p> -->
-            <!-- <a class="nav-link ps-2 pe-2" href="/editprofile">Edit Profile</a> -->
-              <!-- <p disabled readonly>|</p> -->
-                <!-- <a class="nav-link ps-2 pe-2" href="/logout">Login out</a>
-        <?php } else { ?>
-        <a class="nav-link ps-2 pe-2" href="/login">Login</a> -->
-          <!-- <p disabled readonly>|</p> -->
-            <!-- <a class="nav-link ps-2 pe-2" href="/signup">Signup</a> -->
-              <!-- <p disabled readonly>|</p> -->
-                <!-- <a class="nav-link ps-2 pe-2" href="/dashboard">Seller Center</a> -->
-                <!-- <?php if ( isAdmin() ) : ?>
-                  <a class="nav-link ps-2 pe-2" href="/dashboard">Dashboard</a>
-                <?php endif; ?>
-              <?php } ?> -->
-              <!--  -->
-              <?php if ( isUserLoggedIn() ) { ?>
-                <p class="nav-link ps-2 pe-2"><i class="bi bi-person-circle"><?= $_SESSION['user']['firstname'] ?></i></p>
-              <?php } ?>
-              <?php if ( isEditor() || isUser() ) : ?>
-                <a class="nav-link ps-2 pe-2" href="/editprofile">Edit Profile</a>
-                <?php endif; ?>
-              <?php if ( isAdmin() || isEditor() ) : ?>
-                  <a class="nav-link ps-2 pe-2" href="/dashboard">Dashboard</a>
-                <?php endif; ?>
-              <?php if ( isset( $_SESSION["user"] ) ) { ?>
-                <a href="/logout" class="nav-link ps-2 pe-2">Logout</a>
-              <?php } else { ?>
-                <a href="/login" class="nav-link ps-2 pe-2">Login</a>
-                <a href="/signup" class="nav-link ps-2 pe-2">Sign Up</a>
-                <a class="nav-link ps-2 pe-2" href="/dashboard">Dashboard</a>
-              <?php } ?>
-      </div>
-  </div>
-</nav>  
 
 <section id="allproduct">
   
@@ -86,7 +48,6 @@
   <div class="container my-5" style="max-width: 1400px;"> 
    <h3 class="mt-3">All Products</h3> 
     <div class="row">
-      <?php if ( isset( $products) ) : ?>
         <?php 
               foreach( $products as $product ) : ?>
           <div class="col-2 g-3 ">
@@ -125,7 +86,7 @@
                     </div>
           </div>   
         <?php endforeach; ?>
-      <?php endif; ?>
+   
     </div>
   </div>
 </section> 

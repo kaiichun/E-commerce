@@ -41,6 +41,15 @@
             case 'products/delete':
                 require "includes/products/delete.php";
                 break;
+            case 'products/delete':
+                require "includes/products/delete.php";
+                break;
+            case 'comments/add':
+                require "includes/comments/add.php";
+                break; 
+            case 'comments/delete':
+                require "includes/comments/delete.php";
+                break;
             case 'wishlist/submit':
                 require "includes/wishlist/submit.php";
                 break;

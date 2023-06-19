@@ -40,10 +40,9 @@
       <a class="ms-auto text-decoration-none p-2" role="button" href="/products" style="font-size: 1rem;">see all<i class="bi bi-arrow-right-short"></i></a>
     </div>
     <div class="row">
-      <?php if ( isset( $products) ) : ?>
         <?php foreach( $products as $product ) : ?>
           <div class="col-2 g-3 ">
-            <a class="card h-80 text-decoration-none" href="/products-view?id=<?php $product['id'] ?>" type="button">
+            <a class="card h-80 text-decoration-none" href="/products-view?id=<?=$product['id']?>" type="button">
               <img
                 src=<?=  $product['product_image']; ?>
                 class="card-img-top img-fluid"
@@ -96,11 +95,10 @@
             </a>
           </div>   
         <?php endforeach; ?>
-      <?php endif; ?>
     </div>
   </div>
 </section> 
-<!-- All Product -->
+<!-- All Product --> 
 
 <!-- Daily Discover -->
 <!-- 24 random 1 time -->
@@ -111,10 +109,9 @@
       <a class="ms-auto text-decoration-none p-2" role="button" href="/products" style="font-size: 1rem;">see all<i class="bi bi-arrow-right-short"></i></a>
     </div>
     <div class="row">
-      <?php if ( isset( $products) ) : ?>
         <?php shuffle($products); foreach( $products as $product ) : ?>
           <div class="col-2 g-3 ">
-            <div class="card h-80">
+            <a class="card h-80 text-decoration-none" href="/products-view?id=<?=$product['id']?>" type="button">
               <img
                 src=<?=  $product['product_image']; ?>
                 class="card-img-top img-fluid"
@@ -164,10 +161,9 @@
                           </button>
                       </form>
                   </div>
-            </div>
+            </a>
           </div>   
         <?php endforeach; ?>
-      <?php endif; ?>
     </div>
   </div>
 </section> 

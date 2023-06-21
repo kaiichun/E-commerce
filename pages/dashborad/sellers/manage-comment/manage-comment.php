@@ -7,51 +7,54 @@
 $database = connectToDB();
 
 $sql='SELECT comments . *,
-users.email
+users.email,
+products.product_name
 FROM comments
 JOIN users
 ON comments.user_id = users.id
-WHERE product_id = :product_id ORDER BY id DESC LIMIT 3';
-        $query=$database->prepare($sql);
-        $query->execute([
-            'product_id' => $product_id
-        ]);
-        $comments = $query->fetch();
+JOIN products
+ON comments.product_id = products.id';
+$query=$database->prepare($sql);
+$query->execute();
+$comments = $query->fetchAll();
 
 require "parts/header.php";
+require "parts/navbar-home.php";
+
 ?>
 
 <div class="mt-3">
-<?php foreach ($products as $product) { ?> 
-            <?php if (isUserLoggedIn($product['id']) ) : ?>
-            <h4>Comments</h4>
-            <?php
-                $comments = ($product['id']);
-            ?>
+    <div class="container">
+            <h3 class="mb-3">Comments </h3>
+            
                 <?php
                 foreach ($comments as $comment) :
                 ?>
-            <div class="card mt-2 <?php echo ( $comment["user_id"] === $_SESSION['user']['id'] ? "bg-info" : '' ); ?>">
+            <div class="card mt-2 <?php echo ( $comment["user_id"] === $_SESSION['user']['id'] ? "bg-none" : '' ); ?>">
                 <div class="card-body">
-                    <p class="card-text"><?= $comment['comments']; ?></p>
+                    <h5>Prdouct Name: [ <?= $comment['product_name']?> ]</h5>
+                    <hr class="m-0">
+                    <p class="card-text mt-1"><?= $comment['comment']; ?></p>
                     <p class="card-text"><small class="text-muted" style="font-size: 10px;" >Commented By <?= $comment['email']; ?></small></p>
-                </div>
-                    </div>
-                    <?php endforeach; ?>
-            <?php endif; ?>
-            <?php if ( isUserLoggedIn($product['id']) ) : ?>
-            <form
-                action="/comments/add"
+             </div>  </div>
+             <div class="mb-5"> 
+                <form
+                action="/comments/delete"
                 method="POST"    
                 >
-                <div class="mt-3">
-                    <label for="comments" class="form-label">Enter your comment below:</label>
-                    <textarea class="form-control" id="comments" rows="3" name="comments"></textarea>
-                </div>
-                <input type="hidden" name="post_id" value="<?= $comment['id']; ?>" />
-                <input type="hidden" name="user_id" value="<?= $_SESSION['user']['id']; ?>" />
-                <button type="submit" class="btn btn-primary mt-2">Submit</button>
+                <input type="hidden" name="id" value="<?= $comment['id']; ?>" />
+                <button type="submit" class="btn btn-sm btn-danger mt-2">Delete</button>
             </form>
-            <?php endif; ?>
-<?php } ?>
+            
+    </div>
+                    
+            
+            <?php endforeach; ?>
+
+            <div class="text-center">
+        <a href="/dashboard" class="btn btn-link btn-sm">
+            <i class="bi bi-arrow-left"></i> Back to Dashboard
+        </a>
+        </div>
+
         </div>

@@ -4,6 +4,8 @@
         exit;
     }
   require "parts/header.php";
+  require "parts/navbar-home.php";
+
 ?>
        <div class="container my-5 mx-auto" style="max-width: 75vw;">
       <h1 class="h1 mb-4 text-start">Add New Product</h1>

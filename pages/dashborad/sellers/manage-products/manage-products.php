@@ -25,6 +25,8 @@ if(isAdmin()){
 $products = $query->fetchAll();
 
 require "parts/header.php";
+require "parts/navbar-home.php";
+
 ?>
     <div class="mx-auto my-5" style="max-width: 95vw;">
         <div class="d-flex justify-content-between align-items-center mb-2">

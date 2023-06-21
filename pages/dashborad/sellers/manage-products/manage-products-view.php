@@ -16,6 +16,8 @@ $query->execute();
 $product = $query->fetch();
 
     require "parts/header.php";
+    require "parts/navbar-home.php";
+
 ?>
 
 <div class="container mx-auto my-5" style="max-width: 85vw;">

@@ -6,25 +6,28 @@ if ( !isUserLoggedIn() ) {
   exit;
 }
 
-if ( isset( $_GET['id'] ) ) {
   // load database
   $database = connectToDB();
   // load the post data based on the id
   $sql = "SELECT * FROM users WHERE id = :id";
   $query = $database->prepare($sql);
   $query->execute([
-          'id' => $_GET['id']
+          'id' => $_SESSION['user']['id']
   ]);
 
-  $users = $query->fetchAll();
-}
+  $users = $query->fetch();
+
   require "parts/header.php";
+  require "parts/navbar-home.php";
+
 ?>
   <div class="container my-5 mx-auto" style="max-width: 800px;">
+<?php if ( isset($_SESSION['user'] ) ) { ?>
     <h1 class="h1 mb-4 text-start">Edit Profile</h1>
       <div class="p-4">
         <?php    
           require 'parts/message_error.php';
+          
         ?>
           <form method="POST" action="/auth/edit-profile" enctype="multipart/form-data">
             <div class="row g-2 mb-3">
@@ -43,18 +46,18 @@ if ( isset( $_GET['id'] ) ) {
             
               <div class="col-sm-6">
                 <label for="firstname" class="form-label"> First Name</label>
-                <input type="text" class="form-control" placeholder="" aria-label="First name" id="firstname" name="firstname" value="<?= $users['firstname']; ?>"  readonly>
+                <input type="text" class="form-control" placeholder="" aria-label="First name" id="firstname" name="firstname" value="<?= $users['firstname']?>"  readonly>
 
               </div>
               <div class="col-sm-6">
                 <label for="lastname" class="form-label"> Last Name</label>
-                <input type="text" class="form-control" placeholder="" aria-label="Last name" id="lastname" name="lastname" value="<?= $users['lastname']; ?>" readonly>
+                <input type="text" class="form-control" placeholder="" aria-label="Last name" id="lastname" name="lastname" value="<?= $users['lastname']?>" readonly>
               </div>
             </div>
               <div class="row g-2 mb-3">
                 <div class="col-sm-6">
                   <label for="email" class="form-label">Email</label>
-                  <input type="email" class="form-control" placeholder="email@example.com" aria-label="email" id="email" name="email" value="<?= $users['email']; ?>" readonly >
+                  <input type="email" class="form-control" placeholder="email@example.com" aria-label="email" id="email" name="email" value="<?= $users['email']?>" readonly >
                 </div>
               <div class="col-sm-6">
                   <label for="phonecode" class="form-label"> Phone Number</label>
@@ -64,20 +67,20 @@ if ( isset( $_GET['id'] ) ) {
                       </div>
                       <span class="ms-1 me-1 mt-2">-</span>
                       <div class="col-sm-7 g-2">
-                        <input type="text" class="form-control" placeholder="3456789" aria-label="phonenumber" id="phonenumber" name="phonenumber" value="<?= $users['phonenumber']; ?>">
+                        <input type="text" class="form-control" placeholder="3456789" aria-label="phonenumber" id="phonenumber" name="phonenumber" value="<?= $users['phonenumber']?>">
                       </div>
                     </div>
 
   </div>
   <div class="col-sm-6">
   <label for="dob" class="form-label">DOB</label>
-    <input type="date" class="form-control" placeholder="" aria-label="dob" id="dob" name="dob" value="<?= $users['dob']; ?>">
+    <input type="date" class="form-control" placeholder="" aria-label="dob" id="dob" name="dob" value="<?= $users['dob']?>">
   </div>
 
 
 <div class="col-sm-6">
   <label for="gender" class="form-label">Gender</label>
-    <select id="gender" name="gender" class="form-select" value="<?= $users['gender']; ?>">
+    <select id="gender" name="gender" class="form-select" value="<?= $users['gender']?>">
       <option selected disabled readonly> - Please select your sex -</option>
       <option value="male" <?= $users['gender'] === 'male' ? 'selected' : '';?>>Male</option>
       <option value="famale" <?= $users['gender'] === 'famale' ? 'selected' : '';?>>Female</option>
@@ -88,14 +91,14 @@ if ( isset( $_GET['id'] ) ) {
 </label>
           <div class="col-12 mb-2">
     <label for="address" class="form-label"> Address</label>
-    <input type="text" class="form-control" id="address" name="address" placeholder="Apartment, studio, or floor" value="<?= $users['address']; ?>">
+    <input type="text" class="form-control" id="address" name="address" placeholder="Apartment, studio, or floor" value="<?= $users['address']?>">
   </div>
           <div class="row g-2 mb-3">
   <div class="col-sm-4">
-    <input type="text" class="form-control" placeholder="City" aria-label="city" id="city" name="city"value="<?= $users['city']; ?>" >
+    <input type="text" class="form-control" placeholder="City" aria-label="city" id="city" name="city"value="<?= $users['city']?>" >
   </div>
   <div class="col-sm-3">
-    <input type="text" class="form-control" placeholder="Zip" aria-label="zip" id="zip" name="zip" value="<?= $users['zip']; ?>">
+    <input type="text" class="form-control" placeholder="Zip" aria-label="zip" id="zip" name="zip" value="<?= $users['zip']?>">
   </div>
   <div class="col-sm-5">
     <select id="state" name="state" class="form-select">
@@ -156,6 +159,7 @@ if ( isset( $_GET['id'] ) ) {
         
           >
       </div>
+  <?php } ?>
     </div>
 
 <?php

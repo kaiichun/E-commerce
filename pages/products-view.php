@@ -21,6 +21,8 @@
       ]);
       $owner = $query->fetch();
 
+    
+
 
     require "parts/header.php";
     require "parts/navbar.php";
@@ -74,9 +76,14 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center mt-5 g-4">
-                    <button type="submit" class="btn btn-warning"> 
-                      BUY NOW 
-                    </button>
+                    <form method="POST" action="/cart/buynow">
+                        <input type="hidden" name="product_id" value="<?php echo $product['id']?>">
+                        <input type="hidden" name="product_price" value="<?php echo $product['product_price']?>">
+                        <button type="submit" class="btn btn-warning"> 
+                            BUY NOW 
+                        </button> 
+                    </form>
+                    
                     <form
                       method="POST"
                       action="/cart/add_to_cart"
@@ -87,7 +94,7 @@
                       name="product_id"
                       value="<?php echo $product['id']; ?>"
                       />
-                      <button type="submit" class="btn btn-primary ms-4">ADD CART</button>
+                      <button type="submit" class="btn btn-primary ms-2">ADD CART</button>
                     </form>
                   </div>
             </div>

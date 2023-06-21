@@ -28,7 +28,6 @@
         'product_id' => $product_id,
         'user_id' => $user_id
     ]);
-
     $_SESSION["success"] = "The comment uploaded successfully.";
     header("Location: /products-view?id=$product_id" );
     exit;

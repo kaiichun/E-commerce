@@ -62,6 +62,9 @@
             case 'cart/add_to_cart':
                 require 'includes/cart/add_to_cart.php';
                 break;
+            case 'cart/buynow':
+                require 'includes/cart/buynow.php';
+                break;
             case 'cart/remove_from_cart':
                 require 'includes/cart/remove_from_cart.php';
                 break;
@@ -142,6 +145,9 @@
             case 'manage-comment': 
                 require "pages/dashborad/sellers/manage-comment/manage-comment.php";
                 break; 
+                case 'manage-order': 
+                    require "pages/dashborad/sellers/manage-order/manage-order.php";
+                    break; 
             case 'manage-products': 
                 require "pages/dashborad/sellers/manage-products/manage-products.php";
                 break; 

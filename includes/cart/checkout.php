@@ -4,7 +4,6 @@
     $database = connectToDB();
     
 
-
     // get total amount in cart
     $total_amount = $_POST['total_amount'];
 

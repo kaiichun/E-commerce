@@ -20,6 +20,8 @@ $query->execute();
 $users = $query->fetchAll();
 
     require "parts/header.php";
+  require "parts/navbar-home.php";
+
 ?>
     <div class="container-fluid mx-auto mb-5 mt-4" style="max-width: 98vw;">
         <div class="d-flex justify-content-between align-items-center mb-1">
@@ -54,7 +56,7 @@ $users = $query->fetchAll();
                         <tbody>
                         <!-- display out all the users using foreach -->
                         <?php foreach ($users as $user)  { ?>
-                            <?php if($user["role"] == "admin") :?>
+                            <?php if($user["role"] == "admin") : ?>
                                 <tr class="
                                     <?php
                                         if (isset( $_SESSION['new_user_email'] ) && $_SESSION['new_user_email'] == $user['email'] ) {

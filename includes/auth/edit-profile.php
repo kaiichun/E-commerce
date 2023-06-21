@@ -17,7 +17,6 @@
     $city = $_POST["city"];
     $zip = $_POST["zip"];
     $state = $_POST["state"];
-    $id = $_POST['id'];
     $image = $_FILES['image'];
     // get image file name
     $image_name = $image['name'];
@@ -42,8 +41,8 @@
     empty($address) ||
     empty($city) ||
     empty($zip) ||
-    empty($state) || 
-    empty($id) )
+    empty($state) )
+
     {
     $error = 'All rows are required';
     }
@@ -54,7 +53,7 @@
     $query->execute([
         'email'=>$email,
     ]);
-    $user = $query->fetch();
+    $users = $query->fetch();
     
     // if error found, set error message & redirect back to the manage-users-edit page with id in the url
     if ( isset( $error ) ) {
@@ -68,13 +67,13 @@
     $query->execute([
         'phonenumber' => $phonenumber, 
         'address' => $address,
-        'image' => $image,
+        'image' => $image_name,
         'gender' => $gender,
         'city' => $city,
         'zip' => $zip,
         'state' => $state,
         'dob' =>$dob,
-        'id' => $id
+        'id' => $_SESSION['user']['id']
     ]);
 
     // set success message

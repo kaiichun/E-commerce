@@ -22,6 +22,8 @@
     $total_in_cart = 0;
 
     require 'parts/header.php';
+    require "parts/navbar-home.php";
+
 ?>
 
         <div class="container mt-5 mb-2 mx-auto" style="max-width: 900px;">

@@ -26,6 +26,8 @@
         exit;
     }
   require "parts/header.php";
+  require "parts/navbar-home.php";
+
 ?>
 
 <div class="container my-5 mx-auto" style="max-width: 500px;">

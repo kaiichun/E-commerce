@@ -54,8 +54,8 @@ if ( !empty( $image_name ) ) {
     }else if ( $user ) {
         $error = "This email has already been register by other user!";
     }else{
-        $sql = "INSERT INTO users (`firstname`,`lastname`,`image`,`phonenumber`,`dob`,`gender`,`address`,`city`,`zip`,`state`,`email`,`password`) VALUES
-         (:firstname, :lastname, :image, :phonenumber, :dob, :gender, :address, :city, :zip, :state, :email, :password)";
+        $sql = "INSERT INTO users (`firstname`,`lastname`,`image`,`phonenumber`,`dob`,`gender`,`address`,`city`,`zip`,`state`,`role`,`email`,`password`) VALUES
+         (:firstname, :lastname, :image, :phonenumber, :dob, :gender, :address, :city, :zip, :state, :role, :email, :password)";
         $query = $database->prepare( $sql );
         $query->execute([
             'firstname' => $firstname,
@@ -68,6 +68,7 @@ if ( !empty( $image_name ) ) {
             'city' => $city,
             'zip' => $zip,
             'state' => $state,
+            'role' => 'editor',
             'email' => $email,
             'password' => password_hash($password, PASSWORD_DEFAULT)
         ]);

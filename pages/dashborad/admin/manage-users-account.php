@@ -21,7 +21,7 @@ $users = $query->fetchAll();
 
     require "parts/header.php";
 ?>
-    <div class="container-fluid mx-auto mb-3 mt-4" style="max-width: 98vw;">
+    <div class="container-fluid mx-auto mb-5 mt-4" style="max-width: 98vw;">
         <div class="d-flex justify-content-between align-items-center mb-1">
             <h1 class="h1">Manage Users</h1>
             <div class="text-end">
@@ -36,9 +36,8 @@ $users = $query->fetchAll();
 <div class="container-fluid mx-auto mb-3" style="max-width: 98vw;">
     <?php require "parts/message_success.php"; ?>
         <div class="row">
-            <div class="col-12 ">
-                <div class="card mb-2">
-                    <div class="card-body">
+            <div class="col-12 mt-4 mb-5">
+                
                         <table class="table">
                             <thead>
                                 <tr class="col-12">
@@ -142,16 +141,14 @@ $users = $query->fetchAll();
                     </tbody>
                 </table>
                     </div>
-                </div>
-             </div>
+               
         </div>
     </div>
 
     <div class="container-fluid mx-auto mb-3" style="max-width: 98vw;">
         <div class="row">
-            <div class="col-12 ">
-                <div class="card mb-2">
-                    <div class="card-body">
+            <div class="col-12 mb-5">
+                
                         <table class="table">
                             <thead>
                                 <tr class="col-12">
@@ -261,16 +258,13 @@ $users = $query->fetchAll();
                     </tbody>
                 </table>
                     </div>
-                </div>
-             </div>
+            
         </div>
     </div>
 
     <div class="container-fluid mx-auto mb-3" style="max-width: 98vw;">
         <div class="row">
-            <div class="col-12 ">
-                <div class="card mb-2">
-                    <div class="card-body">
+            <div class="col-12 mb-5">
                         <table class="table">
                             <thead>
                                 <tr class="col-12">
@@ -380,8 +374,6 @@ $users = $query->fetchAll();
                     </tbody>
                 </table>
                     </div>
-                </div>
-             </div>
         </div>
     </div>
              

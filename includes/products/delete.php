@@ -11,7 +11,7 @@
     if(empty($id)){
         $error = "Error 404";
     }
-
+    
     if (isset($error)){
         $_SESSION['error'] = $error;
         header("Location: /manage-products");

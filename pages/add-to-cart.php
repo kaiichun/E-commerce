@@ -1,99 +1,112 @@
 <?php
-$database = connectToDB();
 
+    // call db class
+    $database = connectToDB();
 
-// get all the users
-$sql = "SELECT * FROM products";
-$query = $database->prepare($sql);
-$query->execute();
+    // get the cart from the database based on the current logged in user
+    $sql =
+        "SELECT 
+            cart.*,
+            products.product_name,
+            products.product_price 
+        FROM cart
+        JOIN products
+        ON cart.product_id = products.id
+        WHERE cart.user_id = :user_id AND order_id IS NULL";
+        $query = $database->prepare($sql);
+        $query->execute([
+            'user_id' => $_SESSION['user']['id']
+        ]);
+    
+    $products_in_cart = $query->fetchAll();
+    $total_in_cart = 0;
 
-// fetch the data from query
-$products = $query->fetchAll();
-
-    require "parts/header.php";
+    require 'parts/header.php';
 ?>
-    <div class="container-fluid mx-auto mb-3 mt-4" style="max-width: 98vw;">
-            <h1 class="h1">Cart</h1>
-    </div>
-        
-<!--  -->
-<div class="container-fluid mx-auto mb-3" style="max-width: 98vw;">
-    <?php require "parts/message_success.php"; ?>
-        <div class="row">
-            <div class="col-12 ">
-               
-                        <table class="table">
-                            <thead>
-                                <tr class="col-12">
-                                    <th scope="col" style="width: 5%;"></th>
-                                    <th scope="col" style="width: 30%;">Product Name</th>
-                                    <th scope="col" style="width: 20%;">Quantity</th>
-                                    <th scope="col"style="width: 13%;">Price</th>
-                                    <th scope="col" style="width: 5%;"></th>
-                                    
 
-                                </tr>
-                            </thead>
-                        <tbody>
-                        <!-- display out all the users using foreach -->
-                        <?php foreach ($products as $product)  { ?>
-                            <?php if($product["addtocart"] == "1") :?>
-                               
-                                <th scope="row">
-                    <button class="btn btn-sm btn-success"><i class="bi bi-check-square"></i></button><span class="ms-2 text-decoration-line-through"></span>
-                   
-                                </th>
-                                <td>
-<?= $product['product_name']; ?>
-                                </td>
-                                <td>
-                                    
-                                </td>
-                                <td>
-                                     <span>RM
-                                        <?= $product['product_price']; ?>
-                                </td>
-                               
-                               
-                                <td class="text-end">
-                                    
-                                   
+        <div class="container mt-5 mb-2 mx-auto" style="max-width: 900px;">
+            
+            <div class="min-vh-100">
 
-                                            <form action="addtocart/submit" method="post">
-                        <input type="hidden" name="noatcart" value="<?= $product['id']?>">
-                        <input type="hidden" name="addtocart" value="<?= $product['addtocart'];?>">
-                          <button type="submit" class="btn btn-link p-0 m-0">
-                            <?php if($product['addtocart']==1) : ?>
-                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete-modal-<?= $product['id']; ?>">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
-                            <?php else : ?>
-                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete-modal-<?= $product['id']; ?>">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
-                            <?php endif ;?>
-                          </button>
-                      </form>
-
-                                    
-                            </td>
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h1 class="h1">My Cart</h1>
+                </div>
+    
+                <!-- List of products user added to cart -->
+                <table class="table table-hover table-bordered table-striped table-light">
+                    <thead>
+                        <tr>
+                            <th scope="col">Product</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Action</th>
                         </tr>
-                        <?php endif ;?>
-                    <?php } ?>
+                    </thead>
+                    <tbody>
+                    <!-- if no products in the cart -->
+                    <?php if ( empty( $products_in_cart ) ) : ?>
+                        <tr>
+                            <td colspan="5">Your cart is empty.</td>
+                        </tr>
+                    <?php else : ?>
+                        <?php foreach( $products_in_cart as $product ) : 
+                            // get the total product_price of the product
+                            $product_total =  $product['product_price'] * $product['quantity'];
+                            // add the total product_price to the total in cart
+                            $total_in_cart += $product_total;
+                            ?>
+                            <tr>
+                                <td><?php echo $product['product_name']; ?></td>
+                                <td>$<?php echo $product['product_price']; ?></td>
+                                <td><?php echo $product['quantity']; ?></td>
+                                <td>$<?php echo $product_total; ?></td>
+                                <td>
+                                    <form
+                                        method="POST"
+                                        action="/cart/remove_from_cart"
+                                        >
+                                        <input 
+                                            type="hidden"
+                                            name="cart_id"
+                                            value="<?php echo $product['id']; ?>"
+                                            />
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                        <tr>
+                            <td colspan="3" class="text-end">Total</td>
+                            <td>$<?php echo $total_in_cart; ?></td>
+                            <td></td>
+                        </tr>
+                    <?php endif; // end - empty( $products_in_cart ) ?>
                     </tbody>
                 </table>
-             
-             </div>
-        </div>
-    </div>
+                
+                <div class="d-flex justify-content-between align-items-center my-3">
+                    <a href="/" class="btn btn-light btn-sm">Continue Shopping</a>
+                    <!-- if there is product in cart, then only display the checkout button -->
+                    <?php if ( !empty( $products_in_cart ) ) : ?>
+                        <form
+                            method="POST"
+                            action="/cart/checkout"
+                            >
+                            <input type="hidden" name="total_amount" value="<?php echo $total_in_cart; ?>" />
+                            <button type="submit" class="btn btn-primary">Checkout</a>
+                        </form>
+                    <?php endif; ?>
+                </div>
+                
+            </div>
 
-    </div>
-        <div class="text-start mb-3 ms-2">
-            <a href="/products" class="btn btn-link btn-sm">
-                <i class="bi bi-arrow-left"></i> 
-                    Go back to shopping
-            </a>
-        </div>
+            <!-- footer -->
 
+        </div>
+        
 <?php
+
     require "parts/footer.php";

@@ -12,7 +12,7 @@
         <?php    
             require 'parts/message_error.php';
         ?>
-        <form method="POST" action="/products/add">
+        <form method="POST" action="/products/add" enctype="multipart/form-data">
         
         <div class="container">
           <div class="row">
@@ -23,15 +23,8 @@
               </div>
 
                 <div class="col">
-                  <label for="product_image" class="form-label"> Upload Product Image </label>
-                    <div class="input-group mb-3">
-                      <span class="input-group-btn">
-                <span class="btn btn-default btn-file btn-sm">
-                <input type="file" id="imgInp">
-                </span> 
-            </span>
-           
-                    </div>
+                <label for="post-image" class="form-label">Image</label>
+            <input type="file" name="image" id="post-image" />
                 </div>
 
 

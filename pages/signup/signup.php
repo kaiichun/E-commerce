@@ -8,7 +8,7 @@
       <?php    
             require 'parts/message_error.php';
             ?>
-        <form method="POST" action="/auth/signup">
+        <form method="POST" action="/auth/signup" enctype="multipart/form-data">
           <div class="row g-2 mb-3">
             <div class="col-sm-6">
               <label for="firstname" class="form-label"> First Name</label>
@@ -20,6 +20,12 @@
   </div>
 </div>
 <div class="row g-2 mb-3">
+<div class="row g-2 mb-3">
+<div class="col-sm-12">
+<label for="signup-image" class="form-label">Profile Picture</label>
+  <input type="file" name="image" id="signup-image" />
+</div>
+</div>
 <div class="col-sm-6">
   <label for="email" class="form-label">Email</label>
     <input type="email" class="form-control" placeholder="email@example.com" aria-label="email" id="email" name="email">

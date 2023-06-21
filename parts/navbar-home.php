@@ -1,23 +1,8 @@
-<?php
-$keyword = isset( $_GET["keyword"] ) ? $_GET["keyword"] : "";
-$database = connectToDB();
-$sql = "SELECT * FROM products WHERE status = 'publish' AND product_name like '%$keyword%' ORDER BY id DESC LIMIT 12";
-$query = $database->prepare($sql);
-$query->execute();
-$products = $query->fetchAll();
-?>
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="/">Shoppe</a>
-    <form
-        action=""
-        method="GET"
-        class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" name="keyword" value="<?= $keyword; ?>">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
-    <form class="d-flex" role="search">
+   
       <div class="d-flex ms-auto pt-2">
         <?php if ( isUserLoggedIn() ) : ?>
           <a class="nav-link ps-3 pe-3 d-flex" href="/editprofile" > <img

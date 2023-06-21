@@ -1,29 +1,60 @@
 <?php
+
+if ( !isUserLoggedIn() ) {
+  // if current user is not an admin, redirect to dashboard
+  header("Location: /");
+  exit;
+}
+
+if ( isset( $_GET['id'] ) ) {
+  // load database
+  $database = connectToDB();
+  // load the post data based on the id
+  $sql = "SELECT * FROM users WHERE id = :id";
+  $query = $database->prepare($sql);
+  $query->execute([
+          'id' => $_GET['id']
+  ]);
+
+  $users = $query->fetchAll();
+}
   require "parts/header.php";
 ?>
-  <div class="container my-5 mx-auto" style="max-width: 500px;">
+  <div class="container my-5 mx-auto" style="max-width: 800px;">
     <h1 class="h1 mb-4 text-start">Edit Profile</h1>
       <div class="p-4">
         <?php    
           require 'parts/message_error.php';
         ?>
-          <form method="POST" action="/auth/signup">
+          <form method="POST" action="/auth/edit-profile" enctype="multipart/form-data">
             <div class="row g-2 mb-3">
-
+            
+            <div class="col-sm-6 text-center ">
+            <img src="uploads/<?= $users['image']; ?>" class="img-fluid"
+            style="width:10vw; height:10vw; border-radius: 50%;"
+            />
+</div>    
+<div class="col-sm-6 mt-auto mb-2">
+                <label for="product-image" class="form-label">Image</label>
+            <input type="file" name="image" id="product-image" />
+</div>    
+</div>
+<div class="row g-2 mb-3">
+            
               <div class="col-sm-6">
                 <label for="firstname" class="form-label"> First Name</label>
-                <input type="text" class="form-control" placeholder="" aria-label="First name" id="firstname" name="firstname" value="<?= $_SESSION['user']['firstname']?>">
+                <input type="text" class="form-control" placeholder="" aria-label="First name" id="firstname" name="firstname" value="<?= $users['firstname']; ?>"  readonly>
 
               </div>
               <div class="col-sm-6">
                 <label for="lastname" class="form-label"> Last Name</label>
-                <input type="text" class="form-control" placeholder="" aria-label="Last name" id="lastname" name="lastname" value="<?= $_SESSION['user']['lastname']?>">
+                <input type="text" class="form-control" placeholder="" aria-label="Last name" id="lastname" name="lastname" value="<?= $users['lastname']; ?>" readonly>
               </div>
             </div>
               <div class="row g-2 mb-3">
                 <div class="col-sm-6">
                   <label for="email" class="form-label">Email</label>
-                  <input type="email" class="form-control" placeholder="email@example.com" aria-label="email" id="email" name="email" value="<?= $_SESSION['user']['email']?>">
+                  <input type="email" class="form-control" placeholder="email@example.com" aria-label="email" id="email" name="email" value="<?= $users['email']; ?>" readonly >
                 </div>
               <div class="col-sm-6">
                   <label for="phonecode" class="form-label"> Phone Number</label>
@@ -33,23 +64,23 @@
                       </div>
                       <span class="ms-1 me-1 mt-2">-</span>
                       <div class="col-sm-7 g-2">
-                        <input type="text" class="form-control" placeholder="3456789" aria-label="phonenumber" id="phonenumber" name="phonenumber" value="<?= $_SESSION['user']['phonenumber']?>">
+                        <input type="text" class="form-control" placeholder="3456789" aria-label="phonenumber" id="phonenumber" name="phonenumber" value="<?= $users['phonenumber']; ?>">
                       </div>
                     </div>
 
   </div>
   <div class="col-sm-6">
   <label for="dob" class="form-label">DOB</label>
-    <input type="date" class="form-control" placeholder="" aria-label="dob" id="dob" name="dob" value="<?= $_SESSION['user']['dob']?>">
+    <input type="date" class="form-control" placeholder="" aria-label="dob" id="dob" name="dob" value="<?= $users['dob']; ?>">
   </div>
 
 
 <div class="col-sm-6">
   <label for="gender" class="form-label">Gender</label>
-    <select id="gender" name="gender" class="form-select" value="<?= $_SESSION['user']['dob']?>">
+    <select id="gender" name="gender" class="form-select" value="<?= $users['gender']; ?>">
       <option selected disabled readonly> - Please select your sex -</option>
-      <option value="male" >Male</option>
-      <option value="female">Female</option>
+      <option value="male" <?= $users['gender'] === 'male' ? 'selected' : '';?>>Male</option>
+      <option value="famale" <?= $users['gender'] === 'famale' ? 'selected' : '';?>>Female</option>
     </select>
   </div>
 </div>
@@ -57,30 +88,30 @@
 </label>
           <div class="col-12 mb-2">
     <label for="address" class="form-label"> Address</label>
-    <input type="text" class="form-control" id="address" name="address" placeholder="Apartment, studio, or floor">
+    <input type="text" class="form-control" id="address" name="address" placeholder="Apartment, studio, or floor" value="<?= $users['address']; ?>">
   </div>
           <div class="row g-2 mb-3">
   <div class="col-sm-4">
-    <input type="text" class="form-control" placeholder="City" aria-label="city" id="city" name="city">
+    <input type="text" class="form-control" placeholder="City" aria-label="city" id="city" name="city"value="<?= $users['city']; ?>" >
   </div>
   <div class="col-sm-3">
-    <input type="text" class="form-control" placeholder="Zip" aria-label="zip" id="zip" name="zip">
+    <input type="text" class="form-control" placeholder="Zip" aria-label="zip" id="zip" name="zip" value="<?= $users['zip']; ?>">
   </div>
   <div class="col-sm-5">
     <select id="state" name="state" class="form-select">
       <option selected>State</option>
-      <option>Johor</option>
-      <option>Kedah</option>
-      <option>Kuala Lumpur</option>
-      <option>Malacca</option>
-      <option>Negeri Sembilan</option>
-      <option>Perak</option>
-      <option>Perlis</option>
-      <option>Penang</option>
-      <option>Terengganu</option>
-      <option>Selangor</option>
-      <option>Sabah</option>
-      <option>Sarawak</option>
+      <option value="johor"<?=  $users['state'] === 'johor' ? 'selected' : ''; ?>>Johor</option>
+      <option value="kedah"<?=  $users['state'] === 'kedah' ? 'selected' : ''; ?>>Kedah</option>
+      <option value="kualalumpur"<?=  $users['state'] === 'kualalumpur' ? 'selected' : ''; ?>>Kuala Lumpur</option>
+      <option value="malacca"<?=  $users['state'] === 'malacca' ? 'selected' : ''; ?>>Malacca</option>
+      <option value="negarisembilan"<?=  $users['state'] === 'negarisembilan' ? 'selected' : ''; ?>>Negeri Sembilan</option>
+      <option value="perak"<?=  $users['state'] === 'perak' ? 'selected' : ''; ?>>Perak</option>
+      <option value="perlis"<?=  $users['state'] === 'perlis' ? 'selected' : ''; ?>>Perlis</option>
+      <option value="penang"<?=  $users['state'] === 'penang' ? 'selected' : ''; ?>>Penang</option>
+      <option value="terengganu"<?=  $users['state'] === 'terengganu' ? 'selected' : ''; ?>>Terengganu</option>
+      <option value="selangor"<?=  $users['state'] === 'selangor' ? 'selected' : ''; ?>>Selangor</option>
+      <option value="sabah"<?=  $users['state'] === 'sabah' ? 'selected' : ''; ?>>Sabah</option>
+      <option value="sarawak"<?=  $users['state'] === 'sarawak' ? 'selected' : ''; ?>>Sarawak</option>
     </select>
   </div>
 

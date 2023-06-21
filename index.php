@@ -17,8 +17,14 @@
             case 'auth/login':
                 require "includes/auth/login.php";
                 break;
+            case 'auth/seller-login':
+                require "includes/auth/seller-login.php";
+                break;
             case 'auth/signup':
                 require "includes/auth/signup.php";
+                break;
+            case 'auth/edit-profile':
+                require "includes/auth/edit-profile.php";
                 break;
             case 'users/add':
                 require "includes/users/add.php";
@@ -53,17 +59,19 @@
             case 'wishlist/submit':
                 require "includes/wishlist/submit.php";
                 break;
-            case 'addtocart/submit':
-                require "includes/addtocart/submit.php";
+            case 'cart/add_to_cart':
+                require 'includes/cart/add_to_cart.php';
                 break;
-            case 'addtocart/delete':
-                require "includes/addtocart/delete.php";
+            case 'cart/remove_from_cart':
+                require 'includes/cart/remove_from_cart.php';
                 break;
+            case 'cart/checkout':
+                require 'includes/cart/checkout.php';
             case 'login':
                 require 'pages/login/login.php';
                 break;
-            case 'seller-login':
-                require 'pages/login/seller-login.php';
+            case 'seller-signup':
+                require 'pages/signup/seller-signup.php';
                 break;
             case 'signup':
                 require 'pages/signup/signup.php';
@@ -92,6 +100,9 @@
             case 'add-to-cart': 
                 require "pages/add-to-cart.php";
                 break;
+            case 'order-history': 
+                require "pages/order-history.php";
+                break;
             case 'category/beauty': 
                 require "pages/category/beauty.php";
                 break;
@@ -119,7 +130,7 @@
             case 'manage-users':
                 require "pages/dashborad/admin/manage-users-account.php";
                 break;
-                case 'manage-users-account-add':
+            case 'manage-users-account-add':
                 require "pages/dashborad/admin/manage-users-account-add.php";
                 break;
             case 'manage-users-account-edit':

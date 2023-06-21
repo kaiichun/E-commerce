@@ -56,12 +56,12 @@
           <?php if($product ["category"] == "toys") { ?>
           <div class="col-2 g-3 ">
             <a class="card h-80 text-decoration-none" href="/products-view?id=<?=$product['id']?>" type="button">
-              <img
-                src=<?=  $product['product_image']; ?>
-                class="card-img-top img-fluid"
-                style="width:240px; height:200px"
+            <img
+                src=uploads/<?= $product['image']; ?>
+                class="img-fluid"
+                style="width:240px; height:180px"
                 alt="Product_Image"
-              />
+                />
                 <?php if ( isset( $_SESSION["user"] ) ) { ?>
                   <form action="wishlist/submit" method="post">
                     <input type="hidden" name="update_id" value="<?= $product['id']?>">
@@ -93,17 +93,18 @@
                     <button type="submit" class="btn btn-sm btn-warning"> 
                       BUY NOW 
                     </button>
-                      <form action="addtocart/submit" method="post">
-                        <input type="hidden" name="noatcart" value="<?= $product['id']?>">
-                        <input type="hidden" name="addtocart" value="<?= $product['addtocart'];?>">
-                          <button type="submit" class="btn btn-link p-0 m-0">
-                            <?php if($product['addtocart']==0) : ?>
-                              <button type="submit" class="btn btn-sm btn-light"> ADD CART </button>
-                            <?php else : ?>
-                              <button type="submit" class="btn btn-sm btn-light"> <i class="bi bi-x-lg"></i> REMOVE  </button>
-                            <?php endif ;?>
-                          </button>
-                      </form>
+                    <form
+                      method="POST"
+                      action="/cart/add_to_cart"
+                      >
+                      <!-- product id will pass to the cart page -->
+                      <input 
+                      type="hidden"
+                      name="product_id"
+                      value="<?php echo $product['id']; ?>"
+                      />
+                      <button type="submit" class="btn btn-primary ms-2">ADD CART</button>
+                    </form>
                   </div>
             </a>
           </div>  

@@ -22,11 +22,11 @@ $product = $query->fetch();
     <h1 class="mb-4">
         View Product
     </h1>
-        <div class="row col-12">
+    <div class="row col-12">
             <div class="col-6">
                 <img
-                    src=<?=  $product['product_image']; ?>
-                    class="card-img-top img-fluid"
+                    src="uploads/<?= $product['image']; ?>"
+                    class="img-fluid"
                     style="width:40vw; height:40vw"
                     alt="Product_img"
                     />
@@ -57,9 +57,18 @@ $product = $query->fetch();
                     <button type="submit" class="btn mb-2 btn-lg btn-warning">
                         BUY NOW
                     </button>
-                    <button type="submit" class="btn btn-lg btn-light">
-                        ADD CART 
-                    </button>
+                    <form
+                      method="POST"
+                      action="/cart/add_to_cart"
+                      >
+                      <!-- product id will pass to the cart page -->
+                      <input 
+                      type="hidden"
+                      name="product_id"
+                      value="<?php echo $product['id']; ?>"
+                      />
+                      <button type="submit" class="btn mb-2 btn-lg btn-fu btn-primary">Add to cart</button>
+                    </form>
                 </div>
             </div>
         </div>

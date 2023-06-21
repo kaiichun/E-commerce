@@ -14,7 +14,14 @@ if ( !isAdmin() && !isEditor()) {
 
   require "parts/header.php";
 ?>
- <h1 class="h1 mt-5 mb-4 text-center">Dashboard</h1>
+
+<div class="mt-4 ms-2 text-start">
+        <a href="/" class="btn btn-sm"
+          ><i class="bi bi-arrow-left"></i> Go To Shopping</a
+        >
+      </div>
+
+ <h1 class="h1 mt-2 mb-4 text-center">Dashboard</h1>
 
 <div class="container mx-auto my-auto" style="max-width: 100vw;">  
   <div class="row col-12 mb-4">
@@ -24,7 +31,8 @@ if ( !isAdmin() && !isEditor()) {
               <h5 class="text-start">
                 Comments
               </h5>
-             
+          
+            
               </div>
          
         </div>
@@ -120,11 +128,7 @@ if ( !isAdmin() && !isEditor()) {
         </div>
         <?php endif; ?>
       </div>
-      <div class="mt-4 text-center">
-        <a href="/" class="btn btn-link btn-sm"
-          ><i class="bi bi-arrow-left"></i> Back</a
-        >
-      </div>
+     
     </div>
 
 <?php

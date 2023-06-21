@@ -8,9 +8,18 @@ if ( !isAdminOrEditor()) {
 $database = connectToDB();
 
 // get all the users
-$sql = "SELECT * FROM products";
-$query = $database->prepare($sql);
-$query->execute();
+if(isAdmin()){
+    $sql = "SELECT * FROM products";
+    $query = $database->prepare($sql);
+    $query->execute();
+}else{
+    $sql = "SELECT * FROM products WHERE products.user_id = :id";
+    $query = $database->prepare($sql);
+    $query->execute([
+        'id' => $_SESSION['user']['id']
+    ]);
+}
+
 
 // fetch the data from query
 $products = $query->fetchAll();
@@ -37,12 +46,14 @@ require "parts/header.php";
                 <?php foreach ($products as $product) { ?> 
                     <div class="col-2 g-3">
                         <div class="card">
+                        <?php if ( $product['image'] ) : ?>
                             <img
-                                src=<?=  $product['product_image']; ?>
-                                class="card-img-top img-fluid"
-                                style="width:240px; height:200px"
-                                alt="Product"
-                            />
+                src=uploads/<?= $product['image']; ?>
+                class="img-fluid"
+                style="width:240px; height:180px"
+                alt="Product_Image"
+                />
+                        <?php endif ?>    
                                 <span style="position: absolute; top: 12px; right: 8px; font-size: 0.8rem;" class="
                                     <?php
                                         if($product["status"] == "draft"){

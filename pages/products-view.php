@@ -9,7 +9,18 @@
         'id' => $_GET['id']
     ]);
 
-    $products = $query->fetch();
+    $product = $query->fetch();
+
+
+
+    $sql = "SELECT * FROM users WHERE id = :id";
+        
+      $query = $database->prepare($sql);
+      $query->execute([
+        'id' => $product['user_id']
+      ]);
+      $owner = $query->fetch();
+
 
     require "parts/header.php";
     require "parts/navbar.php";
@@ -25,8 +36,8 @@
         <div class="row col-12">
             <div class="col-6">
                 <img
-                    src="<?=  $products['product_image']; ?>"
-                    class="card-img-top img-fluid"
+                    src="uploads/<?= $product['image']; ?>"
+                    class="img-fluid"
                     style="width:40vw; height:40vw"
                     alt="Product_img"
                     />
@@ -35,11 +46,20 @@
                 <div class="d-flex flex-column justify-content-between card-body m-1" style="height:32vw">
                     <div class="card-text mb-4">
                         <h1 style="font-size:3.5rem"> 
-                            <?= $products['product_name']; ?> 
+                            <?= $product['product_name']; ?> 
                         </h1>
-                        <h4 class="mb-4" style="color:#ed510e;"> 
-                            RM<?= $products['product_price']; ?>
+                        <h4 class="mb-2" style="color:#ed510e;"> 
+                            RM<?= $product['product_price']; ?>
                         </h4>
+                        <a class="nav-link d-flex text-secondary" href="/profile" ><h6 class="me-1">Onwer by</h6> <img
+                src=uploads/<?=  $owner['image']; ?>
+                class="me-2"
+                style="width:25px; height:25px; border-radius: 50%;"
+                alt="Product_Image"
+                /><h6 class="">
+              <?= $owner['firstname'];?>
+</h6>
+</a>
                         <div class="">
                             <hr>
                         </div>
@@ -47,27 +67,28 @@
                             Description
                         </h6>
                         <small class="container">
-                            <?php $excerpt = str_split( $products['product_description'], 200 );
+                            <?php $excerpt = str_split( $product['product_description'], 200 );
                                 echo $excerpt[0];
                             ?>
                         </small>   
                     </div>
                 </div>
-                <div class="d-flex justify-content-center m-4 mb-3 g-4">
-                    <button type="submit" class="btn btn-lg btn-warning"> 
+                <div class="d-flex justify-content-center mt-5 g-4">
+                    <button type="submit" class="btn btn-warning"> 
                       BUY NOW 
                     </button>
-                      <form action="addtocart/submit" method="post">
-                        <input type="hidden" name="noatcart" value="<?= $products['id']?>">
-                        <input type="hidden" name="addtocart" value="<?= $products['addtocart'];?>">
-                          <button type="submit" class="btn btn-link p-0 m-0">
-                            <?php if($products['addtocart']==0) : ?>
-                              <button type="submit" class="btn-fu btn btn-lg btn-light"> ADD CART </button>
-                            <?php else : ?>
-                              <button type="submit" class="btn-fu btn btn-lg btn-light"> <i class="bi bi-x-lg"></i> REMOVE  </button>
-                            <?php endif ;?>
-                          </button>
-                      </form>
+                    <form
+                      method="POST"
+                      action="/cart/add_to_cart"
+                      >
+                      <!-- product id will pass to the cart page -->
+                      <input 
+                      type="hidden"
+                      name="product_id"
+                      value="<?php echo $product['id']; ?>"
+                      />
+                      <button type="submit" class="btn btn-primary ms-4">ADD CART</button>
+                    </form>
                   </div>
             </div>
         </div>
@@ -86,7 +107,7 @@
         WHERE product_id = :product_id ORDER BY id DESC";
       $query = $database->prepare($sql);
       $query->execute([
-        "product_id" => $products["id"]
+        "product_id" => $product["id"]
       ]);
       $comments = $query->fetchAll();
 ?>    
@@ -130,7 +151,7 @@
                     <label for="comments" class="form-label">Enter your comment below:</label>
                     <textarea class="form-control" id="comments" rows="3" name="comments"></textarea>
                 </div>
-                <input type="hidden" name="product_id" value="<?= $products['id']; ?>" />
+                <input type="hidden" name="product_id" value="<?= $product['id']; ?>" />
                 <input type="hidden" name="user_id" value="<?= $_SESSION['user']['id']; ?>" />
                 <button type="submit" class="btn btn-primary mt-2">Submit</button>
             </form>

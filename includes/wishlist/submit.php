@@ -15,7 +15,7 @@
     if (empty($update_id)){
         echo "error";
     } else {
-        $sql = 'UPDATE products set is_wishlist = :is_wishlist WHERE id  = :id';
+        $sql = 'UPDATE wishlist set is_wishlist = :is_wishlist WHERE id  = :id';
         
         $query = $database -> prepare( $sql );
     

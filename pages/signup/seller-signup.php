@@ -1,25 +1,36 @@
 <?php
   require "parts/header.php";
 ?>
-       <div class="container my-5 mx-auto" style="max-width: 500px;">
-      <h1 class="h1 mb-4 text-center">Sign Up your Account</h1>
+       <h1 class="h1  mt-4 mb-2 text-center">Sign Up to start your business</h1>
+       <div class="container my-5 mx-auto" style="max-width: 600px;">
+      
 
       <div class="card p-4">
       <?php    
             require 'parts/message_error.php';
             ?>
-        <form method="POST" action="/auth/sellersignup">
-          <div class="row g-2 mb-3">
-  <div class="col-sm-6">
-  <label for="firstname" class="form-label"> First Name</label>
-    <input type="text" class="form-control" placeholder="" aria-label="First name" id="firstname" name="firstname">
-  </div>
+        <form method="POST" action="/auth/signup" enctype="multipart/form-data">
+          <div class="row g-2 mb-3"> 
+            <div class="col-sm-6">
+              <label for="firstname" class="form-label"> First Name</label>
+              <input type="text" class="form-control" placeholder="" aria-label="First name" id="firstname" name="firstname">
+            </div>
   <div class="col-sm-6">
   <label for="lastname" class="form-label"> Last Name</label>
     <input type="text" class="form-control" placeholder="" aria-label="Last name" id="lastname" name="lastname">
   </div>
 </div>
 <div class="row g-2 mb-3">
+<div class="row g-2 mb-3">
+<div class="col-sm-12">
+<label for="signup-image" class="form-label">Profile Picture</label>
+  <input type="file" name="image" id="signup-image" />
+</div>
+</div>
+<div class="col-sm-6">
+  <label for="email" class="form-label">Email</label>
+    <input type="email" class="form-control" placeholder="email@example.com" aria-label="email" id="email" name="email">
+  </div>
 <div class="col-sm-6">
 <label for="phonecode" class="form-label"> Phone Number</label>
 <div class="input-group mb-3">
@@ -34,7 +45,7 @@
 
   </div>
   <div class="col-sm-6">
-  <label for="lastname" class="form-label">DOB</label>
+  <label for="dob" class="form-label">DOB</label>
     <input type="date" class="form-control" placeholder="" aria-label="dob" id="dob" name="dob">
   </div>
 
@@ -47,7 +58,9 @@
       <option value="female">Female</option>
     </select>
   </div>
-</div></label>
+</div>
+
+</label>
           <div class="col-12 mb-2">
     <label for="address" class="form-label"> Address</label>
     <input type="text" class="form-control" id="address" name="address" placeholder="Apartment, studio, or floor">
@@ -76,6 +89,9 @@
       <option>Sarawak</option>
     </select>
   </div>
+  <!-- <div class="col-sm-12">
+    <input type="hidden" class="form-control" placeholder="" aria-label="role" id="role" name="role" value="editor">
+                </div> -->
   
 </div>
           <div class="mb-3">

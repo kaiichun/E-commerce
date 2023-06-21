@@ -14,9 +14,9 @@
                 'id' => $_GET['id']
         ]);
     
-        $products = $query->fetch();
+        $product = $query->fetch();
     
-        if ( !$products ) {
+        if ( !$product ) {
             header("Location: /manage-products");
             exit;
         }
@@ -34,33 +34,27 @@
         <?php    
             require 'parts/message_error.php';
         ?>
-        <form method="POST" action="/products/edit">
+        <form method="POST" action="/products/edit"  enctype="multipart/form-data">
         
         <div class="container">
           <div class="row">
-            <div class="col">
+            <div class="col-6">
               <div class="mb-3">
                 <label for="product_name" class="form-label">Product Name</label>
-                  <input type="text" class="form-control" placeholder="" aria-label="product_name" id="product_name" name="product_name" value="<?= $products['product_name']; ?>">
+                  <input type="text" class="form-control" placeholder="" aria-label="product_name" id="product_name" name="product_name" value="<?= $product['product_name']; ?>">
               </div>
              
                 <div class="col">
-                  <label for="product_image" class="form-label"> Upload Product Image </label>
-                    <div class="input-group mb-3">
-                      <span class="input-group-btn">
-                <span class="btn btn-default btn-file btn-sm">
-                <input type="file" id="imgInp">
-                </span> 
-            </span>
+                <label for="product-image" class="form-label">Image</label>
+            <input type="file" name="image" id="product-image" />
            
-                    </div>
                 </div>
 
                 <div class="col">
                   <label for="product_price" class="form-label"> Product Price </label>
                     <div class="input-group mb-3">
                       <label class="input-group-text" for="product_price">RM</label>
-                        <input type="number" class="form-control" placeholder="00.00" aria-label="product_price" id="product_price" name="product_price" value="<?= $products['product_price']; ?>">
+                        <input type="number" class="form-control" placeholder="00.00" aria-label="product_price" id="product_price" name="product_price" value="<?= $product['product_price']; ?>">
                     </div>
                 </div>
                 
@@ -68,8 +62,8 @@
                   <label for="status" class="form-label">Status</label>
                     <div class="input-group mb-3">
                       <select id="status" name="status" class="form-select">
-                    <option selected value="draft"<?=  $products['status'] === 'draft' ? 'selected' : ''; ?>> Draft </option>
-                    <option value="publish" <?=  $products['status'] === 'publish' ? 'selected' : ''; ?>>Publish</option>
+                    <option selected value="draft"<?=  $product['status'] === 'draft' ? 'selected' : ''; ?>> Draft </option>
+                    <option value="publish" <?=  $product['status'] === 'publish' ? 'selected' : ''; ?>>Publish</option>
                   </select>
                     </div>
                 </div>
@@ -79,32 +73,32 @@
                     <div class="input-group mb-3">
                       <select id="category" name="category" class="form-select">
                         <option selected value="" disabled readonly>-Pls select a category-</option>
-                        <option value="beauty"<?=  $products['category'] === 'beauty' ? 'selected' : ''; ?>>Beauty</option>
-                        <option value="electronics"<?=  $products['category'] === 'electronics' ? 'selected' : ''; ?>>Electronics</option>
-                        <option value="fashion"<?=  $products['category'] === 'fashion' ? 'selected' : ''; ?>>Fashion</option>
-                        <option value="groceries"<?=  $products['category'] === 'groceries' ? 'selected' : ''; ?>>Groceries</option>
-                        <option value="health"<?=  $products['category'] === 'health' ? 'selected' : ''; ?>>Health</option>
-                        <option value="home"<?=  $products['category'] === 'home' ? 'selected' : ''; ?>>Home</option>
-                        <option value="toys"<?=  $products['category'] === 'toys' ? 'selected' : ''; ?>>Toys</option>
-                        <option value="other"<?=  $products['category'] === 'other' ? 'selected' : ''; ?>>Other</option>
+                        <option value="beauty"<?=  $product['category'] === 'beauty' ? 'selected' : ''; ?>>Beauty</option>
+                        <option value="electronics"<?=  $product['category'] === 'electronics' ? 'selected' : ''; ?>>Electronics</option>
+                        <option value="fashion"<?=  $product['category'] === 'fashion' ? 'selected' : ''; ?>>Fashion</option>
+                        <option value="groceries"<?=  $product['category'] === 'groceries' ? 'selected' : ''; ?>>Groceries</option>
+                        <option value="health"<?=  $product['category'] === 'health' ? 'selected' : ''; ?>>Health</option>
+                        <option value="home"<?=  $product['category'] === 'home' ? 'selected' : ''; ?>>Home</option>
+                        <option value="toys"<?=  $product['category'] === 'toys' ? 'selected' : ''; ?>>Toys</option>
+                        <option value="other"<?=  $product['category'] === 'other' ? 'selected' : ''; ?>>Other</option>
                       </select>
                     </div>
                 </div>
               </div>
-            <div class="col">
-              <img id='img-upload'/>
-            </div>
+              <div class="col-6">
+            <img src="uploads/<?= $product['image']; ?>" class="img-fluid h-75 mt-5" />
+        </div>
            
           </div>
 
        <div class="col mb-4">
               <label for="product_description" class="form-label">Description</label>
-              <textarea type="text" class="form-control" placeholder="" rows="3" aria-label="product_description" id="product_description" name="product_description" value="<?= $products['product_price']; ?>">
-              <?= $products['product_description']; ?>
+              <textarea type="text" class="form-control" placeholder="" rows="3" aria-label="product_description" id="product_description" name="product_description">
+              <?= $product['product_description']; ?>
                 </textarea>
             </div>
             <div class="text-end m-2">
-              <input type="hidden" name="id" value="<?= $products['id'];?>"/> 
+              <input type="hidden" name="id" value="<?= $product['id'];?>"/> 
             <button type="submit" class="btn btn-primary btn">
               Comfrim update
             </button>

@@ -54,12 +54,7 @@
                             RM<?= $product['product_price']; ?>
                         </h4>
                         <h6 class="nav-link d-flex text-secondary" href="/profile" >Onwer by
-                        <img
-                            src=uploads/<?=  $owner['image']; ?>
-                            class="ms-2 me-2"
-                            style="width:25px; height:25px; border-radius: 50%;"
-                            alt="Product_Image"
-                            />
+                       
                        
                             <?= $owner['firstname'];?>
                         

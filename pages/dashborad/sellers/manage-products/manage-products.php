@@ -25,7 +25,7 @@ if(isAdmin()){
 $products = $query->fetchAll();
 
 require "parts/header.php";
-require "parts/navbar-home.php";
+// require "parts/navbar.php";
 
 ?>
     <div class="mx-auto my-5" style="max-width: 95vw;">
@@ -33,7 +33,7 @@ require "parts/navbar-home.php";
             <h1 class="h1">Manage products</h1>
             <div class="text-end">
                 <a href="/manage-products-add" class="btn btn-primary btn-sm"
-                >Add New Post</a
+                >Add New Product</a
                 >
             </div>
         </div>
@@ -50,8 +50,8 @@ require "parts/navbar-home.php";
                         <div class="card">
                         <?php if ( $product['image'] ) : ?>
                             <img
-                src=uploads/<?= $product['image']; ?>
-                class="img-fluid"
+                src="uploads/<?= $product['image']; ?>"
+                    class="img-fluid"
                 style="width:240px; height:180px"
                 alt="Product_Image"
                 />

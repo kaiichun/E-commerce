@@ -20,6 +20,8 @@
     $image = $_FILES['image'];
     // get image file name
     $image_name = $image['name'];
+    $original_image = $_POST['original_image'];
+
 
     // add image to the uploads folder
     if ( !empty( $image_name ) ) {
@@ -67,7 +69,7 @@
     $query->execute([
         'phonenumber' => $phonenumber, 
         'address' => $address,
-        'image' => $image_name,
+        'image' =>  (!empty( $image_name ) ? $image_name : ( !empty( $original_image ) ? $original_image : null ) ),
         'gender' => $gender,
         'city' => $city,
         'zip' => $zip,

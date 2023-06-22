@@ -19,14 +19,14 @@ $query->execute();
 $comments = $query->fetchAll();
 
 require "parts/header.php";
-require "parts/navbar-home.php";
+// require "parts/navbar.php";
 
 ?>
 
 <div class="mt-3">
     <div class="container">
             <h3 class="mb-3">Comments </h3>
-            
+            <?php require "parts/message_success.php"; ?>
                 <?php
                 foreach ($comments as $comment) :
                 ?>

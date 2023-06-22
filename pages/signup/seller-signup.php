@@ -9,7 +9,7 @@
       <?php    
             require 'parts/message_error.php';
             ?>
-        <form method="POST" action="/auth/signup" enctype="multipart/form-data">
+        <form method="POST" action="/auth/seller-signup" enctype="multipart/form-data">
           <div class="row g-2 mb-3"> 
             <div class="col-sm-6">
               <label for="firstname" class="form-label"> First Name</label>

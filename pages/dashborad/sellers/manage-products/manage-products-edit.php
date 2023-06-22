@@ -26,7 +26,7 @@
         exit;
     }
   require "parts/header.php";
-  require "parts/navbar-home.php";
+  // require "parts/navbar.php";
 
 ?>
        <div class="container my-5 mx-auto" style="max-width: 75vw;">
@@ -35,6 +35,7 @@
       <div class="card p-4">
         <?php    
             require 'parts/message_error.php';
+            require "parts/message_success.php"; 
         ?>
         <form method="POST" action="/products/edit"  enctype="multipart/form-data">
         
@@ -49,6 +50,10 @@
                 <div class="col">
                 <label for="product-image" class="form-label">Image</label>
             <input type="file" name="image" id="product-image" />
+            <?php if ( $product['image'] ) : ?>
+              <input type="hidden" name="original_image" value="<?= $product['image']; ?>" />
+              <!-- <p><img src="uploads/<?= $product['image']; ?>" width="150px" /></p> -->
+            <?php endif; ?>
            
                 </div>
 

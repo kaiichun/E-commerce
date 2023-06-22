@@ -1,6 +1,6 @@
 <?php
 
-    if ( isset( $_GET['id']))
+  if ( isset( $_GET['id'])){  
     $database = connectToDB();
 
     $sql = "SELECT * FROM products WHERE id = :id";
@@ -21,7 +21,7 @@
       ]);
       $owner = $query->fetch();
 
-    
+    }
 
 
     require "parts/header.php";
@@ -53,15 +53,17 @@
                         <h4 class="mb-2" style="color:#ed510e;"> 
                             RM<?= $product['product_price']; ?>
                         </h4>
-                        <a class="nav-link d-flex text-secondary" href="/profile" ><h6 class="me-1">Onwer by</h6> <img
-                src=uploads/<?=  $owner['image']; ?>
-                class="me-2"
-                style="width:25px; height:25px; border-radius: 50%;"
-                alt="Product_Image"
-                /><h6 class="">
-              <?= $owner['firstname'];?>
+                        <h6 class="nav-link d-flex text-secondary" href="/profile" >Onwer by
+                        <img
+                            src=uploads/<?=  $owner['image']; ?>
+                            class="ms-2 me-2"
+                            style="width:25px; height:25px; border-radius: 50%;"
+                            alt="Product_Image"
+                            />
+                       
+                            <?= $owner['firstname'];?>
+                        
 </h6>
-</a>
                         <div class="">
                             <hr>
                         </div>
@@ -76,14 +78,6 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center mt-5 g-4">
-                    <form method="POST" action="/cart/buynow">
-                        <input type="hidden" name="product_id" value="<?php echo $product['id']?>">
-                        <input type="hidden" name="product_price" value="<?php echo $product['product_price']?>">
-                        <button type="submit" class="btn btn-warning"> 
-                            BUY NOW 
-                        </button> 
-                    </form>
-                    
                     <form
                       method="POST"
                       action="/cart/add_to_cart"
@@ -94,7 +88,7 @@
                       name="product_id"
                       value="<?php echo $product['id']; ?>"
                       />
-                      <button type="submit" class="btn btn-primary ms-2">ADD CART</button>
+                      <button type="submit" class="btn btn-fu btn-primary ms-2">ADD CART</button>
                     </form>
                   </div>
             </div>
@@ -118,9 +112,7 @@
       ]);
       $comments = $query->fetchAll();
 ?>    
-     <?php if ( isAdminOrEditor() ) : ?>
-        <a class="ms-auto text-decoration-none mb-2" role="button" href="/manage-comment" style="font-size: 1rem;">Manage Comment<i class="bi bi-arrow-right-short"></i></a>
-    <?php endif ; ?>  
+  
 
      </div> 
      <div class="overflow-scroll" style="height: 300px;">

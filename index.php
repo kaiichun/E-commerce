@@ -17,8 +17,8 @@
             case 'auth/login':
                 require "includes/auth/login.php";
                 break;
-            case 'auth/seller-login':
-                require "includes/auth/seller-login.php";
+            case 'auth/seller-signup':
+                require "includes/auth/seller-signup.php";
                 break;
             case 'auth/signup':
                 require "includes/auth/signup.php";

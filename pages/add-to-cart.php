@@ -22,7 +22,7 @@
     $total_in_cart = 0;
 
     require 'parts/header.php';
-    require "parts/navbar-home.php";
+    require "parts/navbar.php";
 
 ?>
 

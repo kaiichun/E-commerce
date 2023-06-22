@@ -16,7 +16,7 @@ $query->execute();
 $product = $query->fetch();
 
     require "parts/header.php";
-    require "parts/navbar-home.php";
+    // require "parts/navbar.php";
 
 ?>
 
@@ -55,23 +55,7 @@ $product = $query->fetch();
                         </small>   
                     </div>
                 </div>
-                <div class=" m-0 d-flex flex-column" style="">
-                    <button type="submit" class="btn mb-2 btn-lg btn-warning">
-                        BUY NOW
-                    </button>
-                    <form
-                      method="POST"
-                      action="/cart/add_to_cart"
-                      >
-                      <!-- product id will pass to the cart page -->
-                      <input 
-                      type="hidden"
-                      name="product_id"
-                      value="<?php echo $product['id']; ?>"
-                      />
-                      <button type="submit" class="btn mb-2 btn-lg btn-fu btn-primary">Add to cart</button>
-                    </form>
-                </div>
+                
             </div>
         </div>
         <div class="text-start mt-3 mb-4">

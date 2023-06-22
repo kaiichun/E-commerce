@@ -18,7 +18,7 @@ if ( !isUserLoggedIn() ) {
   $users = $query->fetch();
 
   require "parts/header.php";
-  require "parts/navbar-home.php";
+  require "parts/navbar.php";
 
 ?>
   <div class="container my-5 mx-auto" style="max-width: 800px;">
@@ -29,6 +29,7 @@ if ( !isUserLoggedIn() ) {
           require 'parts/message_error.php';
           
         ?>
+         <?php require "parts/message_success.php"; ?>
           <form method="POST" action="/auth/edit-profile" enctype="multipart/form-data">
             <div class="row g-2 mb-3">
             
@@ -36,6 +37,11 @@ if ( !isUserLoggedIn() ) {
             <img src="uploads/<?= $users['image']; ?>" class="img-fluid"
             style="width:10vw; height:10vw; border-radius: 50%;"
             />
+            <?php if ( $users['image'] ) : ?>
+              <input type="hidden" name="original_image" value="<?= $users['image']; ?>" />
+              <!-- <p><img src="uploads/<?= $users['image']; ?>" width="150px" /></p> -->
+            <?php endif; ?>
+           
 </div>    
 <div class="col-sm-6 mt-auto mb-2">
                 <label for="product-image" class="form-label">Image</label>

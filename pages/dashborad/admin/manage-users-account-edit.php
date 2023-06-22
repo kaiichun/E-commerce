@@ -26,7 +26,7 @@
         exit;
     }
   require "parts/header.php";
-  require "parts/navbar-home.php";
+//   require "parts/navbar.php";
 
 ?>
 

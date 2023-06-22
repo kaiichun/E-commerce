@@ -125,7 +125,7 @@ $users = $query->fetchAll();
                         <tbody>
                         <!-- display out all the users using foreach -->
                         <?php foreach ($users as $user)  { ?>
-                            <?php if($user["role"] == "admin") : ?>
+                            <?php if($user["role"] == "editor") : ?>
                                 <tr class="
                                     <?php
                                         if (isset( $_SESSION['new_user_email'] ) && $_SESSION['new_user_email'] == $user['email'] ) {

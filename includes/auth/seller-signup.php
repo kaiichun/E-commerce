@@ -18,14 +18,14 @@
     $image_name = $image['name'];
 
     // add image to the uploads folder
-if ( !empty( $image_name ) ) {
+    if ( !empty( $image_name ) ) {
     // target the uploads folder
     $target_dir = "uploads/";
     // add the image name to the s folder
     $target_file = $target_dir . basename( $image_name ); // output: uploads/fs.jpg
     // move the file to the uploads folder
     move_uploaded_file( $image["tmp_name"], $target_file );
-}
+    }
 
     $sql = "SELECT * FROM users where email = :email";
     $query = $database->prepare( $sql );
@@ -34,28 +34,17 @@ if ( !empty( $image_name ) ) {
     ]);
     $user = $query->fetch();
 
-    if (empty($firstname) ||
-        empty($lastname) || 
-        empty($phonenumber) ||
-        empty($dob) ||
-        empty($gender) ||
-        empty($address) ||
-        empty($city) ||
-        empty($zip) ||
-        empty($state) || 
-        empty($email) ||
-        empty($password) ||
-        empty($confirm_password)){
+    if ( empty( $firstname ) || empty($lastname) || empty( $phonenumber ) || empty( $dob ) || empty( $gender ) || empty( $address ) || empty( $city ) || empty( $zip ) || empty( $state ) || empty( $email ) || empty( $password ) || empty( $confirm_password ) ) {
         $error = 'All rows are required';
-    }else if($password !== $confirm_password){
+    } else if( $password !== $confirm_password ) {
         $error = 'The password is not match.';
-    }else if(strlen($password)<6){
+    } else if( strlen( $password ) <6 ) {
         $error = "your pass must be at least 6 characters";
-    }else if ( $user ) {
+    } else if ( $user ) {
         $error = "This email has already been register by other user!";
-    }else{
-        $sql = "INSERT INTO users (`firstname`,`lastname`,`image`,`phonenumber`,`dob`,`gender`,`address`,`city`,`zip`,`state`,`role`,`email`,`password`) VALUES
-         (:firstname, :lastname, :image, :phonenumber, :dob, :gender, :address, :city, :zip, :state, :role, :email, :password)";
+    } else {
+        $sql = "INSERT INTO users ( `firstname`,`lastname`,`image`,`phonenumber`,`dob`,`gender`,`address`,`city`,`zip`,`state`,`role`,`email`,`password` ) VALUES
+         ( :firstname, :lastname, :image, :phonenumber, :dob, :gender, :address, :city, :zip, :state, :role, :email, :password )";
         $query = $database->prepare( $sql );
         $query->execute([
             'firstname' => $firstname,
@@ -73,8 +62,6 @@ if ( !empty( $image_name ) ) {
             'password' => password_hash($password, PASSWORD_DEFAULT)
         ]);
         
-        
-
         $sql = "SELECT * FROM users where email = :email";
         $query = $database->prepare( $sql );
         $query->execute([

@@ -1,40 +1,40 @@
 <?php
-$keyword = isset( $_GET["keyword"] ) ? $_GET["keyword"] : "";
-$database = connectToDB();
-$sql = "SELECT * FROM products WHERE status = 'publish' AND product_name like '%$keyword%' ORDER BY id DESC LIMIT 12";
-$query = $database->prepare($sql);
-$query->execute();
-$products = $query->fetchAll();
+  $keyword = isset( $_GET["keyword"] ) ? $_GET["keyword"] : "";
+  $database = connectToDB();
+  $sql = "SELECT * FROM products WHERE status = 'publish' AND product_name like '%$keyword%' ORDER BY id DESC LIMIT 12";
+  $query = $database->prepare($sql);
+  $query->execute();
+  $products = $query->fetchAll();
 ?>
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">Shopee</a>
-      <form
-        action="/products"
-        method="GET"
-        class="d-flex" role="search">
+    <a class="navbar-brand" href="/">
+      Shopee
+    </a>
+      <form action="/products" method="GET" class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" name="keyword" value="<?= $keyword; ?>">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
         <div class="d-flex" role="search">
           <div class="d-flex ms-auto pt-2">
-            <?php if ( isUserLoggedIn() ) : 
-                  $database = connectToDB();
-                   // load the post data based on the id
-                  $sql = "SELECT * FROM users WHERE id = :id";
-                  $query = $database->prepare($sql);
-                  $query->execute([
-                          'id' => $_SESSION['user']['id']
-                  ]);
-                  $users = $query->fetch();
+            <?php 
+              if ( isUserLoggedIn() ) : 
+              $database = connectToDB();
+                // load the post data based on the id
+              $sql = "SELECT * FROM users WHERE id = :id";
+              $query = $database->prepare( $sql );
+              $query->execute([
+                      'id' => $_SESSION['user']['id']
+              ]);
+              $users = $query->fetch();
             ?>
               <a class="nav-link ps-3 pe-3 d-flex" href="/editprofile" >
                 <img
                   src="/uploads/<?= $users['image']; ?>"
-                    class="me-2"
-                    style="width:30px; height:30px; border-radius: 50%;"
-                    alt="Product_Image"
+                  class="me-2"
+                  style="width:30px; height:30px; border-radius: 50%;"
+                  alt="Product_Image"
                 />
                 <h5 class="mt-1">
                   <?= $users['firstname'] ?>

@@ -1,53 +1,54 @@
 <?php
 
-function connectToDB() {
-    $host = 'devkinsta_db'; 
-    $dbname = 'FinalProject_Ecommerce'; 
-    $dbuser = 'root';
-    $dbpassword = 'JlM9YL7mge6ghuLi'; 
+    function connectToDB() {
+        $host = 'devkinsta_db'; 
+        $dbname = 'FinalProject_Ecommerce'; 
+        $dbuser = 'root';
+        $dbpassword = 'JlM9YL7mge6ghuLi'; 
 
-    $database = new PDO (
-        "mysql:host=$host;dbname=$dbname",
-        $dbuser,
-        $dbpassword
-    );
+        $database = new PDO (
+            "mysql:host=$host;dbname=$dbname",
+            $dbuser,
+            $dbpassword
+        );
 
-    return $database;
-}   
+        return $database;
+    }   
+    
     // function to check if the user is currently logged in or not
-function isUserLoggedIn() {
-    return isset( $_SESSION['user'] ) ? true : false;
-}
-
-// function to check if the user is an admin
-function isAdmin() {
-    if ( isset( $_SESSION['user']['role'] ) && $_SESSION['user']['role'] === 'admin' ) {
-        return true;
-    } else {
-        return false;
+    function isUserLoggedIn() {
+        return isset( $_SESSION['user'] ) ? true : false;
     }
-}
 
-function isEditor() {
-    if ( isset( $_SESSION['user']['role'] ) && $_SESSION['user']['role'] === 'editor' ) {
-        return true;
-    } else {
-        return false;
+    // function to check if the user is an admin
+    function isAdmin() {
+        if ( isset( $_SESSION['user']['role'] ) && $_SESSION['user']['role'] === 'admin' ) {
+            return true;
+        } else {
+            return false;
+        }
     }
-}
 
-function isUser() {
-    if ( isset( $_SESSION['user']['role'] ) && $_SESSION['user']['role'] === 'user' ) {
-        return true;
-    } else {
-        return false;
+    function isEditor() {
+        if ( isset( $_SESSION['user']['role'] ) && $_SESSION['user']['role'] === 'editor' ) {
+            return true;
+        } else {
+            return false;
+        }
     }
-}
 
-function isAdminOrEditor() {
-    return isAdmin() || isEditor() ? true : false;
-}
+    function isUser() {
+        if ( isset( $_SESSION['user']['role'] ) && $_SESSION['user']['role'] === 'user' ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-function isEditorOrUser() {
-    return isUser() || isEditor() ? true : false;
-}
+    function isAdminOrEditor() {
+        return isAdmin() || isEditor() ? true : false;
+    }
+
+    function isEditorOrUser() {
+        return isUser() || isEditor() ? true : false;
+    }

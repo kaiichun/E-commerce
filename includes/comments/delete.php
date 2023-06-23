@@ -1,5 +1,6 @@
 <?php
-    if ( !isAdminOrEditor()) {
+
+    if ( !isAdminOrEditor() ) {
         header("Location: /");
         exit;
     }
@@ -8,16 +9,18 @@
 
     $id = $_POST["id"];
     
-    if(empty($id)){
+    if( empty( $id ) ) {
         $error = "ERROR!";
     }
-    if(isset($error)){
+
+    if( isset( $error ) ) {
         $_SESSION['error'] = $error;
         header("Location: /manage-comment");
         exit;
     }
+
     $sql = "DELETE FROM comments WHERE id = :id";
-    $query = $database->prepare($sql);
+    $query = $database->prepare( $sql );
     $query->execute([
         'id' => $id
     ]);

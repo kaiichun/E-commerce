@@ -5,14 +5,14 @@
     $addtocart = $_POST["addtocart"];
     $noatcart = $_POST["noatcart"];
 
-    if($addtocart == 1){
+    if( $addtocart == 1 ) {
         $addtocart = 0;
-    } else if ($addtocart == 0){
+    } else if ( $addtocart == 0 ) {
         $addtocart = 1;
     }
 
 
-    if (empty($noatcart)){
+    if( empty( $noatcart ) ) {
         echo "error";
     } else {
         $sql = 'UPDATE products set addtocart = :addtocart WHERE id  = :id';

@@ -1,5 +1,6 @@
 <?php
-     if ( !isAdminOrEditor()) {
+
+     if ( !isAdminOrEditor() ) {
         header("Location: /");
         exit;
     }
@@ -8,18 +9,18 @@
 
     $id = $_POST["id"];
 
-    if(empty($id)){
+    if( empty( $id ) ) {
         $error = "Error 404";
     }
     
-    if (isset($error)){
+    if ( isset( $error ) ) {
         $_SESSION['error'] = $error;
         header("Location: /manage-products");
         exit;
     }
 
     $sql = "DELETE FROM products WHERE id = :id";
-    $query = $database->prepare($sql);
+    $query = $database->prepare( $sql );
     $query->execute([
         'id' => $id
     ]);

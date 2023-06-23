@@ -29,9 +29,6 @@
             case 'users/add':
                 require "includes/users/add.php";
                 break;
-            case 'users/changepwd':
-                require "includes/users/changepwd.php";
-                break;
             case 'users/delete':
                 require "includes/users/delete.php";
                 break;
@@ -56,20 +53,15 @@
             case 'comments/delete':
                 require "includes/comments/delete.php";
                 break;
-            case 'wishlist/submit':
-                require "includes/wishlist/submit.php";
-                break;
             case 'cart/add_to_cart':
                 require 'includes/cart/add_to_cart.php';
-                break;
-            case 'cart/buynow':
-                require 'includes/cart/buynow.php';
                 break;
             case 'cart/remove_from_cart':
                 require 'includes/cart/remove_from_cart.php';
                 break;
             case 'cart/checkout':
                 require 'includes/cart/checkout.php';
+                break;
             case 'login':
                 require 'pages/login/login.php';
                 break;

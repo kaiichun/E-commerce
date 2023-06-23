@@ -9,11 +9,11 @@
 
     // get all the users
     if( isAdmin() ) {
-        $sql = "SELECT * FROM products";
+        $sql = "SELECT * FROM products ORDER BY id DESC";
         $query = $database->prepare( $sql );
         $query->execute();
     } else {
-        $sql = "SELECT * FROM products WHERE products.user_id = :id";
+        $sql = "SELECT * FROM products WHERE products.user_id = :id ORDER BY id DESC";
         $query = $database->prepare( $sql );
         $query->execute([
             'id' => $_SESSION['user']['id']

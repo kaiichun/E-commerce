@@ -25,10 +25,10 @@
             >Add New User</a
             >
         </div>
-        <?php require "parts/message_success.php"; ?>
     </div>
 </div>
-<div class="container-fluid mx-auto mb-3" style="max-width: 98vw;">
+<div class="container-fluid mx-auto mb-3" style="max-width: 98vw;"> 
+    <?php require "parts/message_success.php"; ?>
     <div class="row">
         <div class="col-12 mt-4 mb-5">
             <table class="table">

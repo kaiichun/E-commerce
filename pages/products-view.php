@@ -43,7 +43,7 @@
                         RM<?= $product['product_price']; ?>
                     </h4>
                     <h6 class="nav-link d-flex text-secondary" href="/profile" >
-                        Onwer by<?= $owner['firstname'];?>
+                        Onwer by <?= $owner['firstname'];?>
                     </h6>
                     <div>
                         <hr>
